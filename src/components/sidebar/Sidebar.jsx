@@ -1,5 +1,12 @@
-import React, { useState } from "react";
+// src/components/layout/Sidebar.jsx
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useTheme } from "../../components/ui/ThemeContext";
+
+import BrandLogo from "../../assets/icons/logo.svg";
+import BrandName from "../../assets/icons/BrandName.svg";
+import LeftIcon from "../../assets/icons/ToggleLeft.svg";
+import RightIcon from "../../assets/icons/ToggleRight.svg";
 
 import DashboardIcon from "../../assets/icons/Dashboard.svg";
 import ProductIcon from "../../assets/icons/Products.svg";
@@ -7,12 +14,7 @@ import OrderIcon from "../../assets/icons/Orders.svg";
 import CustomerIcon from "../../assets/icons/Customer.svg";
 import ChatIcon from "../../assets/icons/Chat.svg";
 import ReportIcon from "../../assets/icons/Report.svg";
-import BrandLogo from "../../assets/icons/logo.svg";
-import BrandName from "../../assets/icons/BrandName.svg";
-import LeftIcon from "../../assets/icons/ToggleLeft.svg";
-import RightIcon from "../../assets/icons/ToggleRight.svg";
 
-// Menu items
 const menuItems = [
   { id: "dashboard", label: "Dashboard", icon: DashboardIcon, path: "/" },
   {
@@ -30,16 +32,22 @@ const menuItems = [
   { id: "reports", label: "Report", icon: ReportIcon, path: "/reports" },
 ];
 
+const getIconClass = (isActive) => {
+  return isActive
+    ? "filter brightness-0 invert"
+    : "dark:filter dark:brightness-0 dark:invert filter brightness-0";
+};
+
 export const Sidebar = ({ isCollapsed, onToggle }) => {
   const location = useLocation();
   const [expandedSubmenu, setExpandedSubmenu] = useState(null);
 
-  const getIconFilter = (isActive, isDark = false) => {
-    if (isActive) return "brightness(0) invert(1)";
-    return isDark ? "brightness(0) invert(1)" : "brightness(0)";
-  };
-
-  const isDarkMode = document.documentElement.classList.contains("dark");
+  useEffect(() => {
+    const current = menuItems.find((item) =>
+      item.submenu?.some((sub) => sub.path === location.pathname)
+    );
+    if (current) setExpandedSubmenu(current.id);
+  }, [location.pathname]);
 
   return (
     <div
@@ -48,9 +56,9 @@ export const Sidebar = ({ isCollapsed, onToggle }) => {
       } transition-all duration-300 ease-in-out bg-white dark:bg-slate-900 border-r border-gray-200 dark:border-slate-700 flex flex-col h-screen justify-between shadow-sm`}
     >
       {/* Logo */}
-      <div className="p-4 border-b border-gray-200 dark:border-slate-700">
+      <div className="p-4  border-gray-200 dark:border-slate-700">
         <div className="flex items-center justify-center space-x-2">
-          <img src={BrandLogo} alt="Logo" className="w-11 h-11 object-contain" />
+          <img src={BrandLogo} alt="Logo" className="w-11 h-11" />
           {!isCollapsed && (
             <img
               src={BrandName}
@@ -62,11 +70,11 @@ export const Sidebar = ({ isCollapsed, onToggle }) => {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 px-2 py-4">
+      <nav className="flex-1 px-2 py-2">
         <ul className="space-y-1">
           {menuItems.map((item) => {
             const isActive = location.pathname === item.path;
-            const hasSubmenu = item.submenu && item.submenu.length > 0;
+            const hasSubmenu = item.submenu?.length;
             const isExpanded = expandedSubmenu === item.id;
 
             return (
@@ -74,86 +82,74 @@ export const Sidebar = ({ isCollapsed, onToggle }) => {
                 {!hasSubmenu ? (
                   <Link
                     to={item.path}
-                    className={`w-full flex items-center rounded-lg transition-all duration-200 group ${
+                    className={`flex items-center rounded-lg group ${
                       isActive
-                        ? "bg-blue-600 dark:bg-blue-500 text-white shadow-md"
-                        : "text-black dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-100"
-                    } ${isCollapsed ? "justify-center py-2" : "px-3 py-2 space-x-3"}`}
+                        ? "bg-secondary text-white shadow-md"
+                        : "text-black dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800"
+                    } ${isCollapsed ? "justify-center px-2 py-2" : "px-3 py-2 space-x-3"}`}
                   >
                     <div className="w-10 flex justify-center items-center">
                       <img
                         src={item.icon}
                         alt={item.label}
-                        className={`transition-all duration-300 ${
-                          isCollapsed ? "w-6 h-6" : "w-5 h-5"
-                        }`}
-                        style={{ filter: getIconFilter(isActive, isDarkMode) }}
+                        className={`w-5 h-5 ${getIconClass(isActive)}`}
                       />
                     </div>
                     {!isCollapsed && (
-                      <span className="font-medium text-sm tracking-wide flex-1 text-left">
-                        {item.label}
-                      </span>
+                      <span className="text-sm font-medium">{item.label}</span>
                     )}
                   </Link>
                 ) : (
-                  <div>
+                  <>
                     <button
                       onClick={() =>
                         setExpandedSubmenu(isExpanded ? null : item.id)
                       }
-                      className={`w-full flex items-center rounded-lg transition-all duration-200 group ${
+                      className={`flex items-center w-full rounded-lg ${
                         isExpanded
-                          ? "bg-blue-600 dark:bg-blue-500 text-white shadow-md"
-                          : "text-black dark:text-slate-300 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-500"
+                          ? "bg-secondary text-white"
+                          : "text-black dark:text-slate-300 hover:bg-secondary hover:text-white"
                       } ${isCollapsed ? "justify-center py-2" : "px-3 py-2 space-x-3"}`}
                     >
                       <div className="w-10 flex justify-center items-center">
                         <img
                           src={item.icon}
                           alt={item.label}
-                          className={`transition-all duration-300 ${
-                            isCollapsed ? "w-6 h-6" : "w-5 h-5"
-                          }`}
-                          style={{ filter: getIconFilter(isExpanded, isDarkMode) }}
+                          className={`w-5 h-5 ${getIconClass(isExpanded)}`}
                         />
                       </div>
                       {!isCollapsed && (
-                        <span className="font-medium text-sm tracking-wide flex-1 text-left">
-                          {item.label}
-                        </span>
+                        <span className="text-sm font-medium">{item.label}</span>
                       )}
                     </button>
 
-                    {/* Submenu */}
                     {!isCollapsed && isExpanded && (
-                      <ul className="mt-0 ml-12 space-y-0 relative">
-                        {item.submenu.map((subItem, index) => {
-                          const isSubActive = location.pathname === subItem.path;
-                          const isLast = index === item.submenu.length - 1;
-
+<ul className="ml-12 mt-0 space-y-0 relative">
+                        {item.submenu.map((sub, i) => {
+                          const isSubActive = location.pathname === sub.path;
+                          const isLast = i === item.submenu.length - 1;
                           return (
-                            <li key={subItem.id} className="relative">
+                            <li key={sub.id} className="relative">
                               <div className="absolute left-[-15px] w-4 h-6 border-l-2 border-b-2 border-black dark:border-gray-600 rounded-bl-md" />
                               {!isLast && (
                                 <div className="absolute left-[-16px] top-7 w-0.5 h-6 dark:bg-gray-600" />
                               )}
                               <Link
-                                to={subItem.path}
-                                className={`block px-3 py-1.5 transition-all duration-200 text-sm ${
+                                to={sub.path}
+                                className={`block px-3 py-1.5 text-sm ${
                                   isSubActive
-                                    ? "font-medium text-blue-600"
+                                    ? "font-medium text-secondary"
                                     : "text-gray-600 dark:text-gray-400"
-                                } hover:font-medium`}
+                                }`}
                               >
-                                {subItem.label}
+                                {sub.label}
                               </Link>
                             </li>
                           );
                         })}
                       </ul>
                     )}
-                  </div>
+                  </>
                 )}
               </li>
             );
@@ -162,19 +158,18 @@ export const Sidebar = ({ isCollapsed, onToggle }) => {
       </nav>
 
       {/* Toggle */}
-      <div className="p-4 border-t border-gray-200 dark:border-slate-700">
-        <button
-          onClick={onToggle}
-          className="p-2 rounded-full bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white transition-colors duration-200 mx-auto block shadow-sm hover:shadow-md"
-        >
-          <img
-            src={isCollapsed ? RightIcon : LeftIcon}
-            alt="Toggle Sidebar"
-            className="w-4 h-4"
-            style={{ filter: "brightness(0) invert(1)" }}
-          />
-        </button>
-      </div>
+<div className="relative">
+  <button
+    onClick={onToggle}
+    className="absolute -right-4 bottom-5 w-7 h-7 rounded-full bg-secondary hover:bg-blue-700 text-white transition duration-200 shadow-lg border-1 border-white dark:border-slate-900 flex items-center justify-center z-10"
+  >
+    <img
+      src={isCollapsed ? RightIcon : LeftIcon}
+      alt="Toggle Sidebar"
+      className="w-6 h-6 filter brightness-0 invert"
+    />
+  </button>
+</div>
     </div>
   );
 };

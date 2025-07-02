@@ -1,17 +1,22 @@
+"use client";
+
 import React from "react";
 import DarkModeIcon from "../../assets/icons/Modes.svg";
+import { useTheme } from "./ThemeContext";
 
-export const ThemeToggle = ({ isDark, onToggle }) => {
+export const ThemeToggle = () => {
+  const { isDark, toggleTheme } = useTheme();
+
   return (
     <button
       type="button"
-      onClick={onToggle}
-      className={`relative w-[51px] h-[24px] flex items-center bg-gray-300 dark:bg-gray-700 rounded-full px-1 transition-colors duration-300`}
+      onClick={toggleTheme}
+      className={`relative w-[45px] h-[23px] flex items-center bg-gray-200 dark:bg-gray-700 rounded-full  transition-colors duration-300`}
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       aria-pressed={isDark}
     >
       <div
-        className={`absolute w-5 h-5 rounded-full shadow-md transform transition-transform duration-300 flex items-center justify-center ${
+        className={`absolute w-5 h-5 rounded-full shadow-md transform transition-transform duration-300 flex items-center justify-center bg-white dark:bg-black ${
           isDark ? "translate-x-6" : "translate-x-0"
         }`}
       >

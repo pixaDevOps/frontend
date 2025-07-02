@@ -19,7 +19,7 @@ export const PieChart = ({ data }) => {
   };
 
   return (
-    <div className="flex items-start justify-between w-full"> {/* Changed from items-center to items-start */}
+    <div className="flex items-start p-6 px-2 justify-between w-full"> {/* Changed from items-center to items-start */}
       {/* Chart */}
       <div className="relative -mt-2"> {/* Added wrapper div with negative margin-top */}
         <svg
@@ -60,7 +60,7 @@ export const PieChart = ({ data }) => {
               ></div>
               <span>{item.label}</span>
             </div>
-            <span className="font-bold">
+            <span className="font-bold text-lg">
               {String(Math.round((item.value / total) * 100)).padStart(2, "0")}%
             </span>
           </li>

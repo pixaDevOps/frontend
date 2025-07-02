@@ -1,18 +1,25 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Dashboard from './pages/dashboard/Dashboard';
-import AddCategory from './pages/products/AddCategory';
-import AddProduct from './pages/products/AddProduct';
+import { Routes, Route } from "react-router-dom";
+import Dashboard from "./pages/dashboard/Dashboard";
+import AddCategory from "./pages/products/AddCategory";
+import AddProduct from "./pages/products/AddProduct";
+import OrderLists from "./pages/orders/OrderLists";
+import ReportPage from "./pages/report/ReportPage";
+import CustomerPage from "./pages/customer/Customer";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/products/add-category" element={<AddCategory />} />
-        <Route path="/products/add-product" element={<AddProduct />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Dashboard />} />
+      <Route path="/products/add-category" element={<AddCategory />} />
+      <Route path="/products/add-product" element={<AddProduct />} />
+      <Route path='/orders' element={<OrderLists />}/>
+      <Route path='/customers' element={<CustomerPage />}/>
+      <Route path='/reports' element={<ReportPage />}/>
+
+
+    </Routes>
   );
 }
 
 export default App;
+

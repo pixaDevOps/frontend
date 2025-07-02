@@ -6,28 +6,30 @@ import DashboardHeader from "../dashboard/DashboardHeader";
 import SubHeader from "../../hooks/SubHeader";
 
 // Icons
-import AddProductIcon from "../../assets/icons/AddProduct.svg";
 import FilterIcon from "../../assets/icons/Filter.svg";
 import SearchIcon from "../../assets/icons/Search.svg";
+import DownloadIcon from "../../assets/icons/DownloadReport.svg";
 
-// 🆕 Imported ProductTable
+// Tables
 import ProductTable from "../../components/tables/ProductTable";
+import OrderTable from "../../components/tables/OrderTable";
+import CustomerTable from "../../components/tables/CustomerTable";
+import DonateTable from "../../components/tables/DonateTable"; // create this if not already
 
-const AddProduct = () => {
+const ReportPage = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [activeMenuItem, setActiveMenuItem] = useState("products-add-product");
-  const [activeTab, setActiveTab] = useState("All");
+  const [activeMenuItem, setActiveMenuItem] = useState("report");
+  const [activeTab, setActiveTab] = useState("Product");
 
   const tabItems = [
-    { label: "All", count: 283 },
-    { label: "In-stock", count: 263 },
-    { label: "Out of stock", count: 3 },
-    { label: "Trash", count: 3 },
+    { label: "Product", count: 283 },
+    { label: "Orders", count: 283 },
+    { label: "Customers", count: 283 },
+    { label: "Donate", count: 283 },
   ];
 
   return (
     <div className="flex h-screen overflow-hidden bg-white dark:bg-gray-900 transition-colors duration-300">
-      {/* Sidebar */}
       <Sidebar
         isCollapsed={sidebarCollapsed}
         onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
@@ -35,16 +37,15 @@ const AddProduct = () => {
         onItemClick={setActiveMenuItem}
       />
 
-      {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         <DashboardHeader />
 
         <main className="flex-1 overflow-y-auto p-6 scrollbar-hide">
           <SubHeader
-            title="Product"
-            buttonText="Add Product"
-            buttonLink="/add-product"
-            icon={AddProductIcon}
+            title="Report"
+            buttonText="Download Report"
+            buttonLink="#"
+            icon={DownloadIcon}
             searchIcon={SearchIcon}
             filterIcon={FilterIcon}
           />
@@ -72,12 +73,17 @@ const AddProduct = () => {
             ))}
           </div>
 
-          {/* Product Table */}
-          <ProductTable />
+          {/* Tab Content */}
+          <div className="mt-4">
+            {activeTab === "Product" && <ProductTable />}
+            {activeTab === "Orders" && <OrderTable />}
+            {activeTab === "Customers" && <CustomerTable />}
+            {activeTab === "Donate" && <DonateTable />}
+          </div>
         </main>
       </div>
     </div>
   );
 };
 
-export default AddProduct;
+export default ReportPage;

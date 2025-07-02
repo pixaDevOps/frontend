@@ -1,26 +1,32 @@
-// src/context/ThemeContext.jsx
-import { createContext, useState, useEffect, useContext } from 'react';
+"use client";
+
+import { createContext, useContext, useEffect, useState } from "react";
 
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  const [isDark, setIsDark] = useState(() => {
-    return localStorage.getItem('theme') === 'dark';
-  });
+  const [isDark, setIsDark] = useState(false); // Default to false for SSR compatibility
 
   useEffect(() => {
-    const root = window.document.documentElement;
-    if (isDark) {
-      root.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
+    // Only run on client side after hydration
+    const stored = localStorage.getItem("theme");
+    if (stored) {
+      setIsDark(stored === "dark");
     } else {
-      root.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
+      setIsDark(window.matchMedia("(prefers-color-scheme: dark)").matches);
     }
+  }, []);
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.toggle("dark", isDark);
+    localStorage.setItem("theme", isDark ? "dark" : "light");
   }, [isDark]);
 
+  const toggleTheme = () => setIsDark(!isDark);
+
   return (
-    <ThemeContext.Provider value={{ isDark, setIsDark }}>
+    <ThemeContext.Provider value={{ isDark, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );

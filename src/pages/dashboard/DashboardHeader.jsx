@@ -1,14 +1,17 @@
 import NotificationIcon from "../../assets/icons/Notification.svg";
 import LogoutIcon from "../../assets/icons/LogoutIcon.svg";
 import { ThemeToggle } from "../../components/ui/ThemeToggle";
+import { useTheme } from "../../components/ui/ThemeContext";
 
-const DashboardHeader = ({ title, isDarkMode, toggleDarkMode, onLogout }) => {
+const DashboardHeader = ({ title, onLogout }) => {
+  const { isDark } = useTheme();
+
   return (
-    <header className="px-6 py-3 bg-white dark:bg-gray-800 transition-colors duration-300">
+    <header className="px-6 py-3 border-b bg-white dark:bg-gray-800 transition-colors duration-300">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{title}</h1>
         <div className="flex items-center space-x-4">
-          <ThemeToggle isDark={isDarkMode} onToggle={toggleDarkMode} />
+          <ThemeToggle />
           <button className="relative p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors">
             <img src={NotificationIcon} alt="Notifications" className="w-5 h-5 object-contain" />
             <span className="absolute -top-0 bottom-0 -right-0 w-4 h-4 bg-red-500 rounded-full text-[10px] text-white font-bold flex items-center justify-center">
