@@ -22,7 +22,7 @@ const menuItems = [
     label: "Products",
     icon: ProductIcon,
     submenu: [
-      { id: "add-category", label: "Add Category", path: "/products/add-category" },
+      { id: "category", label: "Add Category", path: "/products/category" },
       { id: "add-product", label: "Add Product", path: "/products/add-product" },
     ],
   },

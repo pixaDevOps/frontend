@@ -32,7 +32,7 @@ const StatsCard = ({
             {extraIcon && (
               <EyeOff
                 size={18}
-                className="text-gray-600 dark:text-gray-400 cursor-pointer hover:text-gray-800 dark:hover:text-gray-200 transition-colors flex-shrink-0"
+                className="text-white dark:text-gray-400 bg-blue-500 h-5 w-6 border-25 rounded-sm cursor-pointer hover:text-gray-800 dark:hover:text-gray-200 transition-colors flex-shrink-0"
                 onClick={onExtraIconClick}
               />
             )}
@@ -40,12 +40,12 @@ const StatsCard = ({
         </div>
 
         {/* Right Side Icon */}
-        <div className={`flex items-center justify-center rounded-full w-12 h-12 sm:w-14 sm:h-14 ${bgColor || 'bg-gray-100 dark:bg-gray-700'} flex-shrink-0 ml-3`}>
+        <div className={`flex items-center justify-center rounded-full w-12 h-12 sm:w-14 sm:h-14 } flex-shrink-0 ml-3`}>
           {customIcon ? (
             <img
               src={customIcon}
               alt={`${title} icon`}
-              className="w-6 h-6 sm:w-8 sm:h-8 object-contain filter dark:invert"
+              className="w-10 h-10 sm:w-10 sm:h-10 object-contain filter dark:invert"
             />
           ) : Icon ? (
             <Icon size={20} className="text-gray-700 dark:text-gray-300" />

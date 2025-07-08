@@ -63,11 +63,14 @@ const OrderTable = () => {
               <td className="p-4">{order.date}</td>
               <td className="p-4 truncate">{order.address}</td>
               <td className="p-4">
-                <span className={`px-3 py-1 rounded-md text-xs font-semibold text-white ${
-                  statusColorMap[order.status] || "bg-gray-500"
-                }`}>
-                  {order.status}
-                </span>
+                <span
+  className={`px-3 py-1 rounded-md text-xs font-semibold text-white text-center inline-block min-w-[100px] ${
+    statusColorMap[order.status] || "bg-gray-500"
+  }`}
+>
+  {order.status}
+</span>
+
               </td>
             </tr>
           ))}

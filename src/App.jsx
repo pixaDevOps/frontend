@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/dashboard/Dashboard";
-import AddCategory from "./pages/products/AddCategory";
+import Category from "./pages/products/Category";
 import AddProduct from "./pages/products/AddProduct";
 import OrderLists from "./pages/orders/OrderLists";
 import ReportPage from "./pages/report/ReportPage";
@@ -10,7 +10,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Dashboard />} />
-      <Route path="/products/add-category" element={<AddCategory />} />
+      <Route path="/products/category" element={<Category />} />
       <Route path="/products/add-product" element={<AddProduct />} />
       <Route path='/orders' element={<OrderLists />}/>
       <Route path='/customers' element={<CustomerPage />}/>

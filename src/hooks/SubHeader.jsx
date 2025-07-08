@@ -1,18 +1,16 @@
 "use client";
 
 import React from "react";
-import { useNavigate } from "react-router-dom";
 
 const SubHeader = ({
   title,
   icon,
   buttonText,
   buttonLink,
+  onClick,
   searchIcon,
   filterIcon
 }) => {
-  const navigate = useNavigate();
-
   return (
     <div className="flex items-center justify-between mb-6">
       {/* Title */}
@@ -44,8 +42,10 @@ const SubHeader = ({
             />
           </button>
         )}
+
+        {/* Main Action Button */}
         <button
-          onClick={() => navigate(buttonLink)}
+          onClick={onClick ? onClick : () => buttonLink && (window.location.href = buttonLink)}
           className="flex items-center gap-2 text-xs font-medium bg-secondary hover:bg-indigo-700 text-white px-4 py-2 rounded-lg shadow transition"
         >
           {icon && <img src={icon} alt="icon" className="w-5 h-5" />}

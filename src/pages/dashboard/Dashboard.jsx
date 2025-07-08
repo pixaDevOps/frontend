@@ -86,11 +86,17 @@ const Dashboard = () => {
   const topProducts = [
     { id: "1", name: "Product Full Name", price: 555000, sales: 40, status: "In Stock", rank: 1 },
     { id: "2", name: "Product Full Name", price: 555000, sales: 40, status: "In Stock", rank: 1 },
+        { id: "2", name: "Product Full Name", price: 555000, sales: 40, status: "In Stock", rank: 1 },
+    { id: "2", name: "Product Full Name", price: 555000, sales: 40, status: "In Stock", rank: 1 },
+
   ];
 
   const recentOrders = [
     { id: "000001", customerName: "Customer Full Name", price: 3000, totalProducts: 5, date: "Jun 12" },
     { id: "000002", customerName: "Customer Full Name", price: 5000, totalProducts: 8, date: "Jun 13" },
+      { id: "000002", customerName: "Customer Full Name", price: 5000, totalProducts: 8, date: "Jun 13" },
+    { id: "000002", customerName: "Customer Full Name", price: 5000, totalProducts: 8, date: "Jun 13" },
+
   ];
 
   return (
@@ -171,11 +177,11 @@ const Dashboard = () => {
       {/* Modal Header */}
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Sales Amount</h2>
-        <button onClick={() => setShowSalesChart(false)} className="text-gray-400 hover:text-red-500 text-xl font-bold">×</button>
+        <button onClick={() => setShowSalesChart(false)} className="text-gray-400 text-xl font-bold">×</button>
       </div>
 
       {/* Total Sales Card */}
-      <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 mb-4">
+      <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 mb-4">
         <div className="flex items-center justify-between gap-2">
           <div>
             <p className="text-sm text-gray-400 font-medium">Total Sales</p>
