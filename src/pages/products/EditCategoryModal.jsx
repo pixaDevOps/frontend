@@ -94,86 +94,120 @@ const EditCategoryModal = ({ isOpen, onClose, category, onUpdate }) => {
 
         {/* Main Content */}
         <div className="flex flex-col md:flex-row gap-6">
-          {/* Left: Image + Name */}
-          <div className="w-full md:w-1/2 flex flex-col">
-            <div className="relative w-full aspect-square rounded-xl overflow-hidden border border-gray-300 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-800 dark:to-purple-900 flex items-center justify-center">
-              <label className="w-full h-full flex flex-col items-center justify-center cursor-pointer text-black">
-                <input type="file" className="hidden" onChange={handleImageChange} />
-                <img
-                  src={catImage || ImageIcon}
-                  alt="Category"
-                  className="w-full h-full object-cover "
-                />
-                {/* <span className="mt-2 font-medium text-sm">Change Image</span> */}
-              </label>
-              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white px-4 py-1.5 rounded-full text-base font-semibold text-black shadow min-w-[260px] text-center">
-                <input
-                  value={catName}
-                  onChange={handleCatNameChange}
-                  className="bg-transparent w-[180px] outline-none text-center text-base font-semibold"
-                />
-                {showCatSave && (
-                  <button
-                    onClick={saveCatName}
-                    className="ml-2 text-sm font-semibold px-3 py-1 rounded bg-[#4f46e5] text-white"
-                  >
-                    Save
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
+{/* Left: Image + Name */}
+{/* Left: Image + Name */}
+<div className="w-full md:w-1/2">
+  <div className="relative w-full aspect-square rounded-xl overflow-hidden border border-gray-300 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-800 dark:to-purple-900">
+    <label className="w-full h-full block cursor-pointer relative">
+      <input
+        type="file"
+        className="hidden"
+        accept="image/*"
+        onChange={handleImageChange}
+      />
+
+   {/* Background base image */}
+{catImage && (
+  <img
+    src={catImage}
+    alt="Category"
+    className="w-full h-full object-cover"
+  />
+)}
+
+
+      {/* Overlay: Visible on hover */}
+      <div className="absolute inset-0 bg-white bg-opacity-30 transition-all duration-300 flex items-center justify-center"> 
+         <div className="w-full h-full flex flex-col items-center justify-center">
+         <img
+  src={ImageIcon}
+  alt="Upload"
+  className="w-12 h-12 opacity-100 mb-2 filter brightness-0"
+/>
+          <span className="text-black  text-sm">Change Image</span>
+        </div>
+      </div>
+    </label>
+
+    {/* Name input and save button */}
+    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white px-4 py-2 rounded-md text-base font-semibold text-black shadow min-w-[260px] text-center flex items-center justify-center gap-2">
+      <input
+        value={catName}
+        onChange={handleCatNameChange}
+        className="bg-transparent w-[160px] outline-none text-center text-base font-semibold"
+      />
+      {showCatSave && (
+        <button
+          onClick={saveCatName}
+          className="text-sm font-semibold px-4 py-1 rounded bg-secondary text-white"
+        >
+          Save
+        </button>
+      )}
+    </div>
+  </div>
+</div>
 
           {/* Right: Subcategories */}
-          <div className="w-full md:w-1/2 flex flex-col justify-between pr-2">
+          <div className="w-full md:w-1/2 flex flex-col justify-between">
             <h3 className="text-base font-bold text-black dark:text-white mb-3">Sub Category</h3>
 
-            <div className="grid grid-cols-2 gap-3 max-h-[250px] overflow-y-auto pr-1 mb-4">
-              {subcategories.map((sub, idx) => (
-                <div key={idx} className="flex items-center gap-2">
-                  <input
-                    type="text"
-                    value={editingIndex === idx ? editedSubCat : sub}
-                    onChange={(e) => setEditedSubCat(e.target.value)}
-                    onFocus={() => handleEditSubCat(idx)}
-                    readOnly={editingIndex !== idx}
-                    className="w-full px-2 py-1 border text-sm rounded"
-                  />
-                  {editingIndex === idx && (
-                    <button
-                      onClick={saveEditedSubCat}
-                      className="bg-[#4f46e5] text-white text-xs font-semibold px-2 py-1 rounded"
-                    >
-                      Save
-                    </button>
-                  )}
+            <div className="overflow-y-auto max-h-[200px] pr-1 pb-2 scrollbar-hide">
+              {subcategories.length > 0 ? (
+                <div className="grid grid-cols-2 gap-3">
+                  {subcategories.map((sub, idx) => (
+                    <div key={idx} className="flex items-center border border-gray-300 rounded px-2 py-1 bg-white dark:bg-gray-800">
+                      <input
+                        type="text"
+                        value={editingIndex === idx ? editedSubCat : sub}
+                        onChange={(e) => setEditedSubCat(e.target.value)}
+                        onFocus={() => handleEditSubCat(idx)}
+                        readOnly={editingIndex !== idx}
+                        className="w-full bg-transparent text-sm text-black dark:text-white outline-none"
+                      />
+                      {editingIndex === idx ? (
+                        <button
+                          onClick={saveEditedSubCat}
+                          className="ml-2 text-xs font-semibold px-2 py-1 rounded bg-secondary text-white"
+                        >
+                          Save
+                        </button>
+                      ) : null}
+                    </div>
+                  ))}
                 </div>
-              ))}
+              ) : (
+                <div className="text-sm text-gray-500 font-medium text-center py-10">
+                  No subcategories found.
+                </div>
+              )}
             </div>
 
-            <label className="font-semibold text-black dark:text-white mb-1 mt-1">
-              Sub Category Name
-            </label>
-            <div className="flex gap-2 mb-4">
-              <input
-                type="text"
-                placeholder="Enter new sub category"
-                value={newSubCat}
-                onChange={(e) => setNewSubCat(e.target.value)}
-                className="flex-1 px-3 py-2 border text-sm rounded"
-              />
-              <button
-                onClick={addSubCategory}
-                className="bg-[#4f46e5] font-semibold text-white px-4 rounded"
-              >
-                Add
-              </button>
+            <div className="mt-4">
+              <label className="font-semibold text-black dark:text-white">
+                Sub Category Name
+              </label>
+              <div className="flex gap-2 mt-1">
+                <input
+                  type="text"
+                  placeholder="Enter new sub category"
+                  value={newSubCat}
+                  onChange={(e) => setNewSubCat(e.target.value)}
+                  className="flex-1 px-3 py-1.5 border text-sm rounded dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+                />
+                <button
+                  onClick={addSubCategory}
+                  className="bg-secondary font-semibold text-white px-4 rounded"
+                >
+                  Add
+                </button>
+              </div>
             </div>
 
-            <div className="flex justify-center mt-1">
+            <div className="flex justify-center gap-4 mb-2 ">
               <button
                 onClick={handleSave}
-                className="w-32 bg-[#4f46e5] text-white font-semibold py-1.5 rounded"
+                className="w-1/2 bg-secondary text-white py-1 rounded text-sm font-bold"
               >
                 Save
               </button>

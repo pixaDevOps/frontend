@@ -123,7 +123,7 @@ const AddCategoryModal = ({ isOpen, onClose, onSave }) => {
 
             <button
               type="submit"
-              className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-4 rounded transition"
+              className="bg-secondary  text-white text-sm font-medium py-2 px-4 rounded transition"
             >
               Add Category
             </button>

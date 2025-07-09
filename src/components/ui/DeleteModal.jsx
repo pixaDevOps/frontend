@@ -2,8 +2,8 @@
 
 import React from "react";
 import { X } from "lucide-react";
-import TrashIcon from "../../assets/icons/trashIcon.svg"; // ✅ replace with your icon
-import DeletedBin from "../../assets/icons/deletedBin.svg"; // ✅ replace with your deleted bin icon
+import TrashIcon from "../../assets/icons/SubCategoryDelete.svg"; 
+import DeletedBin from "../../assets/icons/Deleted.svg"; 
 
 const DeleteConfirmationModal = ({
   isOpen,
