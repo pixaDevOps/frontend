@@ -1,22 +1,23 @@
-"use client";
-
 import React, { useState } from "react";
 import { Sidebar } from "../../components/sidebar/Sidebar";
 import DashboardHeader from "../dashboard/DashboardHeader";
 import SubHeader from "../../hooks/SubHeader";
+import AddProductModal from "./AddProductModal";
 
 // Icons
 import AddProductIcon from "../../assets/icons/AddProduct.svg";
 import FilterIcon from "../../assets/icons/Filter.svg";
 import SearchIcon from "../../assets/icons/Search.svg";
 
-// 🆕 Imported ProductTable
+// Tables
 import ProductTable from "../../components/tables/ProductTable";
+import TrashPage from "./TrashPage";
 
 const AddProduct = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [activeMenuItem, setActiveMenuItem] = useState("products-add-product");
   const [activeTab, setActiveTab] = useState("All");
+  const [isAddProductModalOpen, setIsAddProductModalOpen] = useState(false); // Modal control
 
   const tabItems = [
     { label: "All", count: 283 },
@@ -40,14 +41,15 @@ const AddProduct = () => {
         <DashboardHeader />
 
         <main className="flex-1 overflow-y-auto p-6 scrollbar-hide">
-          <SubHeader
-            title="Product"
-            buttonText="Add Product"
-            buttonLink="/add-product"
-            icon={AddProductIcon}
-            searchIcon={SearchIcon}
-            filterIcon={FilterIcon}
-          />
+        <SubHeader
+  title="Product"
+  buttonText="Add Product"
+  icon={AddProductIcon}
+  searchIcon={SearchIcon}
+  filterIcon={FilterIcon}
+  onClick={() => setIsAddProductModalOpen(true)} 
+/>
+
 
           {/* Tabs */}
           <div className="flex gap-5 mt-4 mb-2 text-sm text-gray-600 dark:text-gray-300 font-medium">
@@ -72,10 +74,16 @@ const AddProduct = () => {
             ))}
           </div>
 
-          {/* Product Table */}
-          <ProductTable />
+          {/* Product Table Switch */}
+          {activeTab === "Trash" ? <TrashPage /> : <ProductTable />}
         </main>
       </div>
+
+      {/* Add Product Modal */}
+      <AddProductModal
+        isOpen={isAddProductModalOpen}
+        onClose={() => setIsAddProductModalOpen(false)}
+      />
     </div>
   );
 };

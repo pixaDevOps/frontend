@@ -4,19 +4,20 @@ import React, { useState } from "react";
 import { Sidebar } from "../../components/sidebar/Sidebar";
 import DashboardHeader from "../dashboard/DashboardHeader";
 import SubHeader from "../../hooks/SubHeader";
-
+import OrderFormCustomer from "./OrderFormCustomer";
 // Icons
 import AddOrderIcon from "../../assets/icons/AddOrder.svg";
 import FilterIcon from "../../assets/icons/Filter.svg";
 import SearchIcon from "../../assets/icons/Search.svg";
 
-// 🆕 Importing reusable OrderTable
+// 🄟 Importing reusable OrderTable
 import OrderTable from "../../components/tables/OrderTable";
 
 const OrderLists = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [activeMenuItem, setActiveMenuItem] = useState("orders");
   const [activeTab, setActiveTab] = useState("All");
+  const [isOrderFormOpen, setIsOrderFormOpen] = useState(false);
 
   const tabs = [
     { label: "All", count: 283 },
@@ -45,7 +46,7 @@ const OrderLists = () => {
           <SubHeader
             title="Order"
             buttonText="Add New Order"
-            buttonLink="/add-order"
+            onClick={() => setIsOrderFormOpen(true)} // trigger modal
             icon={AddOrderIcon}
             searchIcon={SearchIcon}
             filterIcon={FilterIcon}
@@ -78,6 +79,18 @@ const OrderLists = () => {
           <OrderTable />
         </main>
       </div>
+
+      {/* Order Modal Popup */}
+      {isOrderFormOpen && (
+        <OrderFormCustomer
+          isOpen={isOrderFormOpen}
+          onClose={() => setIsOrderFormOpen(false)}
+          onNext={() => {
+            console.log("Next step clicked");
+            // handle next modal or step logic here
+          }}
+        />
+      )}
     </div>
   );
 };

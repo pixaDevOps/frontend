@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import ImageIcon from "../../assets/icons/AddIamge.svg";
+import ImageIcon from "../../assets/icons/AddImage.svg";
 
 const AddCategoryModal = ({ isOpen, onClose, onSave }) => {
   if (!isOpen) return null;
@@ -21,7 +21,8 @@ const AddCategoryModal = ({ isOpen, onClose, onSave }) => {
     const newCategory = {
       name: categoryName,
       type: categoryType,
-      imageFile: imageFile, // used locally with URL.createObjectURL
+      imageUrl: URL.createObjectURL(imageFile), // 👈 Key line to fix image preview
+      imageFile: imageFile,
     };
 
     onSave(newCategory);
@@ -123,7 +124,7 @@ const AddCategoryModal = ({ isOpen, onClose, onSave }) => {
 
             <button
               type="submit"
-              className="bg-secondary  text-white text-sm font-medium py-2 px-4 rounded transition"
+              className="bg-secondary text-white text-sm font-medium py-2 px-4 rounded transition"
             >
               Add Category
             </button>

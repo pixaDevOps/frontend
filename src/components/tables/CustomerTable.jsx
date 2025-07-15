@@ -23,7 +23,7 @@ const CustomerTable = () => {
       <th className="p-4 text-left ">Phone Number</th>
       <th className="p-4 text-left ">Email</th>
       <th className="p-4 text-left ">Address</th>
-      <th className="p-4 text-center ">Action</th>
+      <th className="p-4 text-left ">Action</th>
     </tr>
   </thead>
 
@@ -39,7 +39,7 @@ const CustomerTable = () => {
                          
                   <div className="inline-flex items-center  overflow-hidden">
                     <button className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800  ">
-                      <img src={EditIcon} alt="Edit" className="w-4 h-4" />
+                      <img src={EditIcon} alt="Edit" className="w-4 h-4 " />
                     </button>
                     <button className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800">
                       <img src={DeleteIcon} alt="Delete" className="w-4 h-4" />

@@ -68,30 +68,24 @@ const Category = () => {
   {categories.map((cat, index) => (
     <div
       key={index}
-      className="bg-[#6b5b95] rounded-2xl p-3 w-44 h-44 flex flex-col items-center justify-between text-white shadow"
+      className="relative w-[160px] h-[160px] rounded-2xl bg-cover bg-center shadow flex items-end justify-center"
+      style={{ backgroundImage: `url(${cat.imageUrl})` }} // ✅ Use correct property
     >
-      {/* Image */}
-      <img
-        src={cat.imageUrl}
-        alt={cat.name}
-        className="w-full h-f object-cover"
-      />
+      <div className="absolute inset-0 bg-black/20 rounded-2xl" />
 
-      {/* Truncated Category Name */}
       <span
         onClick={() => {
           setSelectedCategory(cat);
           setShowViewModal(true);
         }}
-        className="bg-white text-black px-3 py-[2px] rounded-full text-sm font-semibold w-[140px] text-center cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap"
-        title={cat.name} // Optional: shows full name on hover
+        className="relative z-10 bg-white text-black px-3 py-[2px] rounded-full text-sm font-semibold w-[140px] text-center cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap mb-2"
+        title={cat.name}
       >
         {cat.name}
       </span>
     </div>
   ))}
 </div>
-
 
           <AddCategoryModal
             isOpen={showAddModal}

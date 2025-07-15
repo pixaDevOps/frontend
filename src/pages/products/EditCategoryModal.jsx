@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import ImageIcon from "../../assets/icons/AddIamge.svg";
+import ImageIcon from "../../assets/icons/AddImage.svg";
 import { X } from "lucide-react";
+import Button from "../../components/atoms/Buttons";
 
 const EditCategoryModal = ({ isOpen, onClose, category, onUpdate }) => {
   if (!isOpen || !category) return null;
@@ -86,77 +87,76 @@ const EditCategoryModal = ({ isOpen, onClose, category, onUpdate }) => {
       >
         {/* Header */}
         <div className="flex items-center justify-between mb-2">
-          <h2 className="text-base font-bold text-black dark:text-white">Edit Category</h2>
+          <h2 className="text-base font-bold text-black dark:text-white">Add Sub Category</h2>
           <button onClick={onClose} className="text-red-500">
             <X size={22} />
           </button>
         </div>
 
         {/* Main Content */}
-        <div className="flex flex-col md:flex-row gap-6">
-{/* Left: Image + Name */}
-{/* Left: Image + Name */}
-<div className="w-full md:w-1/2">
-  <div className="relative w-full aspect-square rounded-xl overflow-hidden border border-gray-300 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-800 dark:to-purple-900">
-    <label className="w-full h-full block cursor-pointer relative">
-      <input
-        type="file"
-        className="hidden"
-        accept="image/*"
-        onChange={handleImageChange}
-      />
+        <div className="flex flex-col md:flex-row gap-3">
+          {/* Left: Image + Name */}
+          <div className="w-full md:w-1/2">
+            <div className="relative w-full aspect-square rounded-xl overflow-hidden border border-gray-300 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-800 dark:to-purple-900">
+              <label className="w-full h-full block cursor-pointer relative">
+                <input
+                  type="file"
+                  className="hidden"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                />
+                {catImage && (
+                  <img
+                    src={catImage}
+                    alt="Category"
+                    className="w-full h-full object-cover"
+                  />
+                )}
 
-   {/* Background base image */}
-{catImage && (
-  <img
-    src={catImage}
-    alt="Category"
-    className="w-full h-full object-cover"
-  />
-)}
+                <div className="absolute inset-0 bg-white bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                  <div className="w-full h-full flex flex-col items-center justify-center">
+                    <img
+                      src={ImageIcon}
+                      alt="Upload"
+                      className="w-12 h-12 opacity-100 mb-2 filter brightness-0"
+                    />
+                    <span className="text-black text-sm">Change Image</span>
+                  </div>
+                </div>
+              </label>
 
-
-      {/* Overlay: Visible on hover */}
-      <div className="absolute inset-0 bg-white bg-opacity-30 transition-all duration-300 flex items-center justify-center"> 
-         <div className="w-full h-full flex flex-col items-center justify-center">
-         <img
-  src={ImageIcon}
-  alt="Upload"
-  className="w-12 h-12 opacity-100 mb-2 filter brightness-0"
-/>
-          <span className="text-black  text-sm">Change Image</span>
-        </div>
-      </div>
-    </label>
-
-    {/* Name input and save button */}
-    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white px-4 py-2 rounded-md text-base font-semibold text-black shadow min-w-[260px] text-center flex items-center justify-center gap-2">
-      <input
-        value={catName}
-        onChange={handleCatNameChange}
-        className="bg-transparent w-[160px] outline-none text-center text-base font-semibold"
-      />
-      {showCatSave && (
-        <button
-          onClick={saveCatName}
-          className="text-sm font-semibold px-4 py-1 rounded bg-secondary text-white"
-        >
-          Save
-        </button>
-      )}
-    </div>
-  </div>
-</div>
+              {/* Category name input */}
+              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white  px-2 py-2 rounded-md text-base font-semibold text-black shadow min-w-[260px] text-center flex items-center justify-center gap-2">
+                <input
+                  value={catName}
+                  onChange={handleCatNameChange}
+                  className="bg-transparent w-[180px] outline-none text-center text-base font-semibold"
+                />
+                {showCatSave && (
+                  <Button
+                    size="small"
+                    color="primary"
+                    onClick={saveCatName}
+                  >
+                    Save
+                  </Button>
+                )}
+              </div>
+            </div>
+          </div>
 
           {/* Right: Subcategories */}
-          <div className="w-full md:w-1/2 flex flex-col justify-between">
+          <div className="w-full md:w-1/2 flex flex-col justify-between h-[360px]">
             <h3 className="text-base font-bold text-black dark:text-white mb-3">Sub Category</h3>
 
-            <div className="overflow-y-auto max-h-[200px] pr-1 pb-2 scrollbar-hide">
+<div className="overflow-y-auto flex-1 pr-1 pb-2 scrollbar-thin  dark:scrollbar-thumb-gray-600 scrollbar-track-transparent">
               {subcategories.length > 0 ? (
                 <div className="grid grid-cols-2 gap-3">
                   {subcategories.map((sub, idx) => (
-                    <div key={idx} className="flex items-center border border-gray-300 rounded px-2 py-1 bg-white dark:bg-gray-800">
+                    <div
+                      key={idx}
+                      className="flex items-center border border-gray-300 rounded px-2 py-1 bg-white dark:bg-gray-800"
+                    >
                       <input
                         type="text"
                         value={editingIndex === idx ? editedSubCat : sub}
@@ -165,14 +165,16 @@ const EditCategoryModal = ({ isOpen, onClose, category, onUpdate }) => {
                         readOnly={editingIndex !== idx}
                         className="w-full bg-transparent text-sm text-black dark:text-white outline-none"
                       />
-                      {editingIndex === idx ? (
-                        <button
+                      {editingIndex === idx && (
+                        <Button
+                          size="small"
+                          color="primary"
                           onClick={saveEditedSubCat}
-                          className="ml-2 text-xs font-semibold px-2 py-1 rounded bg-secondary text-white"
+                          className="ml-2"
                         >
                           Save
-                        </button>
-                      ) : null}
+                        </Button>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -187,7 +189,7 @@ const EditCategoryModal = ({ isOpen, onClose, category, onUpdate }) => {
               <label className="font-semibold text-black dark:text-white">
                 Sub Category Name
               </label>
-              <div className="flex gap-2 mt-1">
+              <div className="flex gap-2 mt-1 mb-2">
                 <input
                   type="text"
                   placeholder="Enter new sub category"
@@ -195,22 +197,24 @@ const EditCategoryModal = ({ isOpen, onClose, category, onUpdate }) => {
                   onChange={(e) => setNewSubCat(e.target.value)}
                   className="flex-1 px-3 py-1.5 border text-sm rounded dark:bg-gray-800 dark:border-gray-700 dark:text-white"
                 />
-                <button
+                <Button
+                  size="medium"
+                  color="primary"
                   onClick={addSubCategory}
-                  className="bg-secondary font-semibold text-white px-4 rounded"
                 >
                   Add
-                </button>
+                </Button>
               </div>
             </div>
 
-            <div className="flex justify-center gap-4 mb-2 ">
-              <button
+            <div className="flex justify-center gap-4 mb-2">
+              <Button
+                size="large"
+                color="primary"
                 onClick={handleSave}
-                className="w-1/2 bg-secondary text-white py-1 rounded text-sm font-bold"
               >
                 Save
-              </button>
+              </Button>
             </div>
           </div>
         </div>
