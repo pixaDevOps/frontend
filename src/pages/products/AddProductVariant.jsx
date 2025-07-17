@@ -1,3 +1,4 @@
+// src/pages/products/AddProductVariantStep.jsx
 import React, { useState, useRef } from 'react';
 import AddProductLayout from '../../components/ui/AddProductLayout';
 import Stepper from '../../components/ui/Stepper';
@@ -60,6 +61,22 @@ const AddProductVariantStep = ({ isOpen, onClose, productId, onNext, onPrev }) =
     }
   };
 
+  const handleNext = () => {
+    const allVariants = variants.map((v) => ({
+      ...v,
+      dimensions: { ...v.dimensions },
+    }));
+
+    const stored = JSON.parse(localStorage.getItem('products')) || [];
+    const updated = stored.map((p, i) =>
+      i === stored.length - 1 ? { ...p, sellingPrice: allVariants[0]?.sellingPrice || '', variants: allVariants } : p
+    );
+
+    localStorage.setItem('products', JSON.stringify(updated));
+
+    setShowImageStep(true);
+  };
+
   if (showImageStep) {
     return (
       <AddProductImage
@@ -105,7 +122,6 @@ const AddProductVariantStep = ({ isOpen, onClose, productId, onNext, onPrev }) =
         </label>
       </div>
 
-      {/* Scrollable Variant Container */}
       <div className="max-h-[365px] overflow-y-auto scrollbar-hide pr-1" ref={scrollRef}>
         {variants.map((variant, index) => (
           <div key={index} className="mb-3 pb-4">
@@ -208,12 +224,10 @@ const AddProductVariantStep = ({ isOpen, onClose, productId, onNext, onPrev }) =
           </div>
         ))}
 
-        {/* Scroll anchor for auto-scroll */}
         <div ref={bottomRef} />
       </div>
 
-      {/* Footer Buttons */}
-      <div className="flex items-center justify-between ">
+      <div className="flex items-center justify-between">
         <button
           onClick={addVariant}
           className="flex items-center gap-2 text-sm text-blue-600 font-medium border border-blue-500 px-3 py-1.5 rounded-md hover:bg-blue-50"
@@ -225,7 +239,7 @@ const AddProductVariantStep = ({ isOpen, onClose, productId, onNext, onPrev }) =
           <Button onClick={onPrev} variant="outline" size="medium">
             ‹ Prev
           </Button>
-          <Button onClick={() => setShowImageStep(true)} size="medium">
+          <Button onClick={handleNext} size="medium">
             Next ›
           </Button>
         </div>

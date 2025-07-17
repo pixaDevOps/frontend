@@ -12,6 +12,14 @@ const OrderReviewSummary = ({ isOpen, onClose, onPrev, summaryData }) => {
     { code: '00001', name: 'Drugless Kingdom Book Version-1 (Kannada)', qty: 2, cost: 2299, delivery: 229 },
     { code: '00002', name: 'Drugless Kingdom Book Version-1 (Kannada)', qty: 2, cost: 2299, delivery: 229 },
     { code: '00003', name: 'Drugless Kingdom Book Version-1 (Kannada)', qty: 2, cost: 2299, delivery: 229 },
+        { code: '00003', name: 'Drugless Kingdom Book Version-1 (Kannada)', qty: 2, cost: 2299, delivery: 229 },
+    { code: '00003', name: 'Drugless Kingdom Book Version-1 (Kannada)', qty: 2, cost: 2299, delivery: 229 },
+    { code: '00003', name: 'Drugless Kingdom Book Version-1 (Kannada)', qty: 2, cost: 2299, delivery: 229 },
+    { code: '00003', name: 'Drugless Kingdom Book Version-1 (Kannada)', qty: 2, cost: 2299, delivery: 229 },
+    { code: '00003', name: 'Drugless Kingdom Book Version-1 (Kannada)', qty: 2, cost: 2299, delivery: 229 },
+    { code: '00003', name: 'Drugless Kingdom Book Version-1 (Kannada)', qty: 2, cost: 2299, delivery: 229 },
+    { code: '00003', name: 'Drugless Kingdom Book Version-1 (Kannada)', qty: 2, cost: 2299, delivery: 229 },
+
   ];
 
   const totalCost = products.reduce((sum, p) => sum + p.cost, 0);

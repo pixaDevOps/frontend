@@ -1,3 +1,4 @@
+// src/pages/products/AddProductImage.jsx
 import React, { useState } from 'react';
 import AddProductLayout from '../../components/ui/AddProductLayout';
 import Stepper from '../../components/ui/Stepper';
@@ -9,7 +10,7 @@ import AddProductSuccess from './AddProductSuccess';
 
 const AddProductImage = ({ isOpen, onClose, productId, onPrev }) => {
   const [images, setImages] = useState(Array(5).fill(null));
-  const [showSuccess, setShowSuccess] = useState(false); // ✅ Control final step
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const handleImageChange = (index, event) => {
     const file = event.target.files[0];
@@ -26,7 +27,22 @@ const AddProductImage = ({ isOpen, onClose, productId, onPrev }) => {
     setImages(updated);
   };
 
-  // ✅ Final success page
+  const handleDone = () => {
+    const stored = JSON.parse(localStorage.getItem("products")) || [];
+
+    const updated = stored.map((p, i) =>
+      i === stored.length - 1
+        ? {
+            ...p,
+            images: images.filter((img) => img !== null),
+          }
+        : p
+    );
+
+    localStorage.setItem("products", JSON.stringify(updated));
+    setShowSuccess(true);
+  };
+
   if (showSuccess) {
     return (
       <AddProductSuccess
@@ -52,7 +68,6 @@ const AddProductImage = ({ isOpen, onClose, productId, onPrev }) => {
 
       <h4 className="font-bold text-base mb-2 border-b pb-1">Product Images</h4>
 
-      {/* Main Square Preview */}
       <div className="w-60 aspect-square rounded-xl overflow-hidden mb-3 border border-gray-300 shadow relative">
         <img
           src={images[0] || defaultImage}
@@ -84,7 +99,6 @@ const AddProductImage = ({ isOpen, onClose, productId, onPrev }) => {
         )}
       </div>
 
-      {/* 5 Image Grid */}
       <div className="grid grid-cols-6 gap-3 mb-3">
         {images.map((img, idx) => (
           <div
@@ -138,7 +152,7 @@ const AddProductImage = ({ isOpen, onClose, productId, onPrev }) => {
         <Button onClick={onPrev} variant="outline" size="medium">
           ‹ Prev
         </Button>
-        <Button onClick={() => setShowSuccess(true)} size="medium">
+        <Button onClick={handleDone} size="medium">
           Done ›
         </Button>
       </div>

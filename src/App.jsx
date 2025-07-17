@@ -5,11 +5,13 @@ import AddProduct from "./pages/products/AddProduct";
 import OrderLists from "./pages/orders/OrderLists";
 import ReportPage from "./pages/report/ReportPage";
 import CustomerPage from "./pages/customer/Customer";
+import AuthPage from "./pages/login/AuthPage";
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Dashboard />} />
+      <Route path="/" element={<AuthPage />} />
+      <Route path="/dashboard" element={<Dashboard />}/>
       <Route path="/products/category" element={<Category />} />
       <Route path="/products/add-product" element={<AddProduct />} />
       <Route path='/orders' element={<OrderLists />}/>

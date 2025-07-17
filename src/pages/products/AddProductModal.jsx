@@ -15,13 +15,11 @@ const AddProductModal = ({ isOpen, onClose }) => {
     type: 'virtual',
     description: '',
   });
-
   const [showVariant, setShowVariant] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
       const id = Math.floor(10000 + Math.random() * 90000);
-      console.log('[ProductModal] Generated product ID:', id);
       setProductId(id);
     }
   }, [isOpen]);
@@ -51,7 +49,14 @@ const AddProductModal = ({ isOpen, onClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('[ProductModal] Calling onNext with productId:', productId);
+    const newProduct = {
+      id: productId,
+      ...formData,
+      image: imagePreview,
+    };
+    const existing = JSON.parse(localStorage.getItem('products')) || [];
+    const updated = [...existing, newProduct];
+    localStorage.setItem('products', JSON.stringify(updated));
     setShowVariant(true);
   };
 
@@ -62,9 +67,7 @@ const AddProductModal = ({ isOpen, onClose }) => {
         onClose={onClose}
         productId={productId}
         onPrev={() => setShowVariant(false)}
-        onNext={() => {
-          console.log('Go to next step');
-        }}
+        onNext={() => console.log('Next step')}
       />
     );
   }
@@ -78,11 +81,8 @@ const AddProductModal = ({ isOpen, onClose }) => {
       onImageChange={handleImageChange}
     >
       <Stepper currentStep={1} totalSteps={4} />
-
       <h3 className="text-base font-bold mb-3 border-b py-2">Product Details</h3>
-
       <form onSubmit={handleSubmit} className="flex flex-col gap-y-4 w-full max-w-3xl">
-        {/* Product Name */}
         <div className="flex flex-col">
           <label className="text-sm font-semibold mb-1">Product Name</label>
           <input
@@ -95,8 +95,6 @@ const AddProductModal = ({ isOpen, onClose }) => {
             required
           />
         </div>
-
-        {/* Category & Sub Category */}
         <div className="flex flex-col md:flex-row gap-4 w-full">
           <div className="flex flex-col w-full">
             <label className="text-sm font-semibold mb-1">Category</label>
@@ -119,7 +117,6 @@ const AddProductModal = ({ isOpen, onClose }) => {
               ))}
             </select>
           </div>
-
           <div className="flex flex-col w-full">
             <label className="text-sm font-semibold mb-1">Sub Category</label>
             <select
@@ -142,8 +139,6 @@ const AddProductModal = ({ isOpen, onClose }) => {
             </select>
           </div>
         </div>
-
-        {/* Type */}
         <div className="flex gap-6 text-slate-500">
           <label className="flex items-center gap-2">
             <input
@@ -166,8 +161,6 @@ const AddProductModal = ({ isOpen, onClose }) => {
             <span className="text-sm">Physical</span>
           </label>
         </div>
-
-        {/* Description */}
         <div className="flex flex-col">
           <label className="text-sm font-semibold mb-1">Description</label>
           <textarea
@@ -180,8 +173,6 @@ const AddProductModal = ({ isOpen, onClose }) => {
             required
           />
         </div>
-
-        {/* Footer Button */}
         <div className="flex justify-end pt-3">
           <Button type="submit" size="medium">
             Next ›

@@ -16,7 +16,7 @@ import ChatIcon from "../../assets/icons/Chat.svg";
 import ReportIcon from "../../assets/icons/Report.svg";
 
 const menuItems = [
-  { id: "dashboard", label: "Dashboard", icon: DashboardIcon, path: "/" },
+  { id: "dashboard", label: "Dashboard", icon: DashboardIcon, path: "/dashboard" },
   {
     id: "products",
     label: "Products",
