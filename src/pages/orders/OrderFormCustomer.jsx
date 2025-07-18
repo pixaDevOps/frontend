@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import OrderProductLayout from '../../components/ui/OrderProductLayout';
+import OrderProductLayout from './components/OrderProductLayout';
 import Stepper from '../../components/ui/Stepper';
-import Button from '../../components/atoms/Buttons';
+import Button from '../../components/buttons/Buttons';
 import CalendarModal from '../../components/ui/CalendarModal';
 import CalendarIcon from '../../assets/icons/calendarIcon.svg';
 import OrderProductSelection from './OrderProductSelection';

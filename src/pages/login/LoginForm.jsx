@@ -35,7 +35,6 @@ const LoginForm = () => {
       updatedOtp[index] = value;
       setOtp(updatedOtp);
 
-      // Auto-focus next box
       if (value && index < otp.length - 1) {
         const nextInput = document.getElementById(`otp-${index + 1}`);
         nextInput?.focus();
@@ -49,7 +48,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="w-full h-full p-4 flex flex-col justify-center items-center">
+    <div className="w-full h-full p-4 flex flex-col justify-center items-center bg-white ">
       <img src={logo} alt="Ayushya Mandalam Logo" className="w-36 h-36 mb-4" />
 
       {step === "phone" && (
@@ -106,8 +105,8 @@ const LoginForm = () => {
           </div>
 
           {!resendVisible ? (
-            <p className="text-sm text-gray-600 mb-2">
-              Didn’t receive OTP code? <span className="font-medium">{timer}s ⏱</span>
+            <p className="text-sm text-gray-600 mb-2 text-center">
+              Didn’t receive OTP code? <br /> <span className="font-medium text-secondary">{timer}s ⏱</span>
             </p>
           ) : (
             <p className="text-sm text-gray-800 mb-2 text-center">

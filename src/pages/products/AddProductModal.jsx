@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import AddProductLayout from '../../components/ui/AddProductLayout';
+import AddProductLayout from './components/AddProductLayout';
 import defaultImage from '../../assets/images/AddProduct.png';
-import Button from '../../components/atoms/Buttons';
+import Button from '../../components/buttons/Buttons';
 import Stepper from '../../components/ui/Stepper';
 import AddProductVariantStep from './AddProductVariant';
 

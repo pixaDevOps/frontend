@@ -1,6 +1,6 @@
 import React from "react";
 import { X } from "lucide-react";
-import Button from "../../components/atoms/Buttons";
+import Button from "../../components/buttons/Buttons";
 
 // Status color mapping
 const statusColorMap = {

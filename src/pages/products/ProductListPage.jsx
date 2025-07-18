@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Sidebar } from "../../components/sidebar/Sidebar";
+import { Sidebar } from "../../components/layouts/Sidebar";
 import DashboardHeader from "../dashboard/DashboardHeader";
-import SubHeader from "../../hooks/SubHeader";
+import SubHeader from "../../components/layouts/SubHeader";
 import AddProductModal from "./AddProductModal";
 
 // Icons
@@ -10,10 +10,10 @@ import FilterIcon from "../../assets/icons/Filter.svg";
 import SearchIcon from "../../assets/icons/Search.svg";
 
 // Tables
-import ProductTable from "../../components/tables/ProductTable";
+import ProductTable from "./ProductTable";
 import TrashPage from "./TrashPage";
 
-const AddProduct = () => {
+const ProductListPage = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [activeMenuItem, setActiveMenuItem] = useState("products-add-product");
   const [activeTab, setActiveTab] = useState("All");
@@ -88,4 +88,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default ProductListPage;

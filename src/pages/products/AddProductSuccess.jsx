@@ -1,7 +1,7 @@
 // src/pages/products/AddProductSuccess.js
 
 import React from 'react';
-import AddProductLayout from '../../components/ui/AddProductLayout';
+import AddProductLayout from './components/AddProductLayout';
 import Stepper from '../../components/ui/Stepper';
 import successIcon from '../../assets/icons/ProductAdded.svg'; 
 

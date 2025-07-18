@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { Sidebar } from "../../components/sidebar/Sidebar";
+import { Sidebar } from "../../components/layouts/Sidebar";
 import DashboardHeader from "../dashboard/DashboardHeader";
-import SubHeader from "../../hooks/SubHeader";
+import SubHeader from "../../components/layouts/SubHeader";
 import AddCustomerIcon from "../../assets/icons/AddCustomer.svg";
 import SearchIcon from "../../assets/icons/Search.svg";
 import FilterIcon from "../../assets/icons/Filter.svg";
-import CustomerTable from "../../components/tables/CustomerTable";
+import CustomerTable from "./CustomerTable";
 import AddCustomerModal from "./AddCustomerModal"; // Verify this path is correct
 
 const CustomerPage = () => {

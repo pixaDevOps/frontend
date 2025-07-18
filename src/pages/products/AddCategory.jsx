@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import ImageIcon from "../../assets/icons/AddImage.svg";
 
-const AddCategoryModal = ({ isOpen, onClose, onSave }) => {
+const AddCategory = ({ isOpen, onClose, onSave }) => {
   if (!isOpen) return null;
 
   const [categoryName, setCategoryName] = useState("");
@@ -135,4 +135,4 @@ const AddCategoryModal = ({ isOpen, onClose, onSave }) => {
   );
 };
 
-export default AddCategoryModal;
+export default AddCategory;

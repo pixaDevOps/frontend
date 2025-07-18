@@ -1,8 +1,8 @@
 // src/pages/products/AddProductVariantStep.jsx
 import React, { useState, useRef } from 'react';
-import AddProductLayout from '../../components/ui/AddProductLayout';
+import AddProductLayout from './components/AddProductLayout';
 import Stepper from '../../components/ui/Stepper';
-import Button from '../../components/atoms/Buttons';
+import Button from '../../components/buttons/Buttons';
 import defaultImage from '../../assets/images/AddProduct.png';
 import { Plus } from 'lucide-react';
 import AddProductImage from './AddProductImage';

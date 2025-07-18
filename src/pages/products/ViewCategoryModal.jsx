@@ -2,9 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import ImageIcon from "../../assets/icons/AddImage.svg";
 import DeleteIcon from "../../assets/icons/Delete.svg";
 import { X } from "lucide-react";
-import { DeleteConfirm } from "../../components/molecules/DeleteConfirm";
-import { DeletedStatus } from "../../components/molecules/DeletedStatus";
-import Button from "../../components/atoms/Buttons";
+import { DeleteConfirm } from "../../components/ui/DeleteConfirm";
+import { DeletedStatus } from "../../components/ui/DeletedStatus";
+import Button from "../../components/buttons/Buttons";
 
 const ViewCategoryModal = ({ isOpen, onClose, category, onUpdate, onDelete }) => {
   if (!isOpen || !category) return null;

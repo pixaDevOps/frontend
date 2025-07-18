@@ -1,6 +1,8 @@
-// src/components/layout/Sidebar.jsx
+"use client";
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+
 import { useTheme } from "../../components/ui/ThemeContext";
 
 import BrandLogo from "../../assets/icons/logo.svg";
@@ -28,15 +30,13 @@ const menuItems = [
   },
   { id: "orders", label: "Order Lists", icon: OrderIcon, path: "/orders" },
   { id: "customers", label: "Customer", icon: CustomerIcon, path: "/customers" },
-  { id: "chat", label: "Chat", icon: ChatIcon, path: "/chat" },
   { id: "reports", label: "Report", icon: ReportIcon, path: "/reports" },
 ];
 
-const getIconClass = (isActive) => {
-  return isActive
+const getIconClass = (isActive) =>
+  isActive
     ? "filter brightness-0 invert"
     : "dark:filter dark:brightness-0 dark:invert filter brightness-0";
-};
 
 export const Sidebar = ({ isCollapsed, onToggle }) => {
   const location = useLocation();
@@ -50,13 +50,14 @@ export const Sidebar = ({ isCollapsed, onToggle }) => {
   }, [location.pathname]);
 
   return (
-    <div
-      className={`${
-        isCollapsed ? "w-16" : "w-[200px]"
-      } transition-all duration-300 ease-in-out bg-white dark:bg-slate-900 border-r border-gray-200 dark:border-slate-700 flex flex-col h-screen justify-between shadow-sm`}
+    <motion.div
+      initial={false}
+      animate={{ width: isCollapsed ? 64 : 200 }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+      className="bg-white dark:bg-slate-900 border-r border-gray-200 dark:border-slate-700 flex flex-col h-screen justify-between shadow-sm"
     >
       {/* Logo */}
-      <div className="p-4  border-gray-200 dark:border-slate-700">
+      <div className="p-4">
         <div className="flex items-center justify-center space-x-2">
           <img src={BrandLogo} alt="Logo" className="w-11 h-11" />
           {!isCollapsed && (
@@ -122,33 +123,45 @@ export const Sidebar = ({ isCollapsed, onToggle }) => {
                         <span className="text-sm font-medium">{item.label}</span>
                       )}
                     </button>
+<AnimatePresence initial={false}>
+{!isCollapsed && isExpanded && (
+  <motion.ul
+    initial={{ height: 0, opacity: 0 }}
+    animate={{ height: "auto", opacity: 1 }}
+    exit={{ height: 0, opacity: 0 }}
+    transition={{ duration: 0.3 }}
+    className="relative  ml-6 pl-1 space-y-2"
+  >
+    {/* Vertical line trunk */}
+    <div className="absolute left-2 top-0 bottom-2 w-px bg-black dark:bg-gray-500" />
 
-                    {!isCollapsed && isExpanded && (
-<ul className="ml-12 mt-0 space-y-0 relative">
-                        {item.submenu.map((sub, i) => {
-                          const isSubActive = location.pathname === sub.path;
-                          const isLast = i === item.submenu.length - 1;
-                          return (
-                            <li key={sub.id} className="relative">
-                              <div className="absolute left-[-15px] w-4 h-6 border-l-2 border-b-2 border-black dark:border-gray-600 rounded-bl-md" />
-                              {!isLast && (
-                                <div className="absolute left-[-16px] top-7 w-0.5 h-6 dark:bg-gray-600" />
-                              )}
-                              <Link
-                                to={sub.path}
-                                className={`block px-3 py-1.5 text-sm ${
-                                  isSubActive
-                                    ? "font-medium text-secondary"
-                                    : "text-gray-600 dark:text-gray-400"
-                                }`}
-                              >
-                                {sub.label}
-                              </Link>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    )}
+    {item.submenu.map((sub, i) => {
+      const isSubActive = location.pathname === sub.path;
+      return (
+        <li key={sub.id} className="relative flex items-start justify-center">
+          {/* Curved branch */}
+          <span className="absolute left-1 top- w-4 h-4 border-l-2 border-b-2 border-black dark:border-gray-500 rounded-bl-md" />
+
+          {/* Link */}
+          <Link
+            to={sub.path}
+            className={`ml-4 block text-sm transition-colors duration-200 ${
+              isSubActive
+                ? "font-medium text-secondary"
+                : "text-gray-600 dark:text-gray-400"
+            }`}
+          >
+            {sub.label}
+          </Link>
+        </li>
+      );
+    })}
+  </motion.ul>
+)}
+
+
+</AnimatePresence>
+
                   </>
                 )}
               </li>
@@ -158,18 +171,22 @@ export const Sidebar = ({ isCollapsed, onToggle }) => {
       </nav>
 
       {/* Toggle */}
-<div className="relative">
-  <button
-    onClick={onToggle}
-    className="absolute -right-4 bottom-5 w-7 h-7 rounded-full bg-secondary hover:bg-blue-700 text-white transition duration-200 shadow-lg border-1 border-white dark:border-slate-900 flex items-center justify-center z-10"
-  >
-    <img
-      src={isCollapsed ? RightIcon : LeftIcon}
-      alt="Toggle Sidebar"
-      className="w-6 h-6 filter brightness-0 invert"
-    />
-  </button>
-</div>
-    </div>
+      <div className="relative">
+        <button
+          onClick={onToggle}
+          className="absolute -right-4 bottom-5 w-7 h-7 rounded-full bg-secondary hover:bg-blue-700 text-white transition duration-200 shadow-lg border-1 border-white dark:border-slate-900 flex items-center justify-center z-10"
+        >
+          <motion.img
+            src={isCollapsed ? RightIcon : LeftIcon}
+            alt="Toggle Sidebar"
+            key={isCollapsed ? "right" : "left"}
+            initial={{ rotate: isCollapsed ? -180 : 0 }}
+            animate={{ rotate: isCollapsed ? 0 : 180 }}
+            transition={{ duration: 0.3 }}
+            className="w-6 h-6 filter brightness-0 invert"
+          />
+        </button>
+      </div>
+    </motion.div>
   );
 };

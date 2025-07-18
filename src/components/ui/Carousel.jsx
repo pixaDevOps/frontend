@@ -15,7 +15,7 @@ const SuccessCarousel = () => {
   }, [images.length]);
 
   return (
-    <div className="w-full h-full p-2 bg-gradient-to-br from-orange-50 to-amber-50 rounded-3xl">
+    <div className="w-full h-full p-2 bg-white rounded-3xl">
   
       {/* Image container with dots inside */}
       <div className="relative w-full h-[590px] rounded-xl ">
@@ -36,7 +36,7 @@ const SuccessCarousel = () => {
             <button
               key={i}
               onClick={() => setCurrent(i)}
-              className={`w-3 h-1 rounded-full transition-all duration-300 ${
+              className={`w-3 h-1 rounded-full  transition-all duration-300 ${
                 current === i ? "bg-blue-600 scale-125" : "bg-gray-300"
               }`}
             />

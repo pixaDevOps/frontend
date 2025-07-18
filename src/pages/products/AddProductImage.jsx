@@ -1,8 +1,8 @@
 // src/pages/products/AddProductImage.jsx
 import React, { useState } from 'react';
-import AddProductLayout from '../../components/ui/AddProductLayout';
+import AddProductLayout from './components/AddProductLayout';
 import Stepper from '../../components/ui/Stepper';
-import Button from '../../components/atoms/Buttons';
+import Button from '../../components/buttons/Buttons';
 import defaultImage from '../../assets/images/AddProduct.png';
 import deleteIcon from '../../assets/icons/Delete.svg';
 import ImageIcon from '../../assets/icons/AddImage.svg';

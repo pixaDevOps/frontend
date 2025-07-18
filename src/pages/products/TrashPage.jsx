@@ -1,4 +1,4 @@
-import TrashProductTable from "../../components/tables/TrashTable";
+import TrashProductTable from "./TrashTable";
 
 const TrashPage = () => {
   return (

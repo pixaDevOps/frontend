@@ -1,11 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Sidebar } from "../../components/sidebar/Sidebar";
+import { Sidebar } from "../../components/layouts/Sidebar";
 import StatsCard from "../../components/cards/StatCard";
 import { PieChart } from "../../components/charts/PieChart";
-import { LineGraph } from "../../components/charts/LineGraph";
-import { TopSellingProducts } from "./TopSellingProducts";
+import LineGraph from "../../components/charts/LineGraph";
+import { TopSellingProducts } from "../products/TopSellingProducts";
 import { RecentOrders } from "../orders/RecentOrders";
 import TotalUserIcon from "../../assets/icons/User.svg";
 import TotalOrderIcon from "../../assets/icons/Order.svg";
@@ -56,7 +56,7 @@ const Dashboard = () => {
     },
     {
       title: "Total Sales",
-      value: "₹ *****",
+      value: "\u20B9 *****",
       change: -4.3,
       changeType: "down",
       customIcon: TotalSalesIcon,
@@ -66,7 +66,7 @@ const Dashboard = () => {
     },
     {
       title: "Total Tax",
-      value: "₹2,040",
+      value: "\u20B92,040",
       change: 1.8,
       changeType: "up",
       customIcon: TotalTaxIcon,
@@ -81,22 +81,14 @@ const Dashboard = () => {
     { label: "Books", value: 23980, color: "#10B981" },
   ];
 
-  const lineGraphData = [];
-
   const topProducts = [
     { id: "1", name: "Product Full Name", price: 555000, sales: 40, status: "In Stock", rank: 1 },
     { id: "2", name: "Product Full Name", price: 555000, sales: 40, status: "In Stock", rank: 1 },
-        { id: "2", name: "Product Full Name", price: 555000, sales: 40, status: "In Stock", rank: 1 },
-    { id: "2", name: "Product Full Name", price: 555000, sales: 40, status: "In Stock", rank: 1 },
-
   ];
 
   const recentOrders = [
     { id: "000001", customerName: "Customer Full Name", price: 3000, totalProducts: 5, date: "Jun 12" },
     { id: "000002", customerName: "Customer Full Name", price: 5000, totalProducts: 8, date: "Jun 13" },
-      { id: "000002", customerName: "Customer Full Name", price: 5000, totalProducts: 8, date: "Jun 13" },
-    { id: "000002", customerName: "Customer Full Name", price: 5000, totalProducts: 8, date: "Jun 13" },
-
   ];
 
   return (
@@ -121,7 +113,7 @@ const Dashboard = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-6">
             <div className="col-span-12 lg:col-span-4 bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 flex flex-col border border-gray-200 dark:border-gray-700">
               <div className="flex items-center justify-between">
-                <h2 className="text-sm font-semibold text-gray-800 dark:text-white">Product Sold</h2>
+                <h2 className="text-md font-semibold text-gray-800 dark:text-white">Product Sold</h2>
                 <span className="text-xs text-gray-500 dark:text-gray-400">This Week</span>
               </div>
               <div className="flex-1 flex items-start justify-center -mt-1">
@@ -136,7 +128,7 @@ const Dashboard = () => {
                   <img src={CalendarAssetIcon} alt="Calendar" className="w-4 h-4" />
                 </button>
               </div>
-              {/* <LineGraph data={lineGraphData} /> */}
+              <LineGraph />
             </div>
           </div>
 
@@ -146,7 +138,6 @@ const Dashboard = () => {
           </div>
         </main>
 
-        {/* Passkey Modal */}
         {showPasskeyModal && (
           <PasskeyModal
             passkey={passkey}
@@ -161,7 +152,6 @@ const Dashboard = () => {
           />
         )}
 
-        {/* Calendar Modal */}
         {showCalendar && (
           <CalendarModal
             onClose={() => setShowCalendar(false)}
@@ -169,69 +159,41 @@ const Dashboard = () => {
           />
         )}
 
-        {/* Final Sales Chart Modal */}
-{showSalesChart && (
-  <div className="fixed inset-0 z-50 bg-black bg-opacity-40 flex items-center justify-center">
-    <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg w-[28%] max-w-xl p-6 relative border border-gray-200 dark:border-gray-700">
-      
-      {/* Modal Header */}
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Sales Amount</h2>
-        <button onClick={() => setShowSalesChart(false)} className="text-gray-400 text-xl font-bold">×</button>
-      </div>
+        {showSalesChart && (
+          <div className="fixed inset-0 z-50 bg-black bg-opacity-40 flex items-center justify-center">
+            <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg w-[28%] max-w-xl p-6 relative border border-gray-200 dark:border-gray-700">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Sales Amount</h2>
+                <button onClick={() => setShowSalesChart(false)} className="text-gray-400 text-xl font-bold">×</button>
+              </div>
 
-      {/* Total Sales Card */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 mb-4">
-        <div className="flex items-center justify-between gap-2">
-          <div>
-            <p className="text-sm text-gray-400 font-medium">Total Sales</p>
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white">₹ 23,98,980.87</h3>
-          </div>
-          <img src={TotalSalesIcon} alt="icon" className="w-10 h-10" />
-        </div>
-        <div className="flex items-center mt-2 gap-1 text-sm text-red-500 font-medium">
-          <span>↓</span> 4.3% Down from yesterday
-        </div>
-      </div>
+              <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 mb-4">
+                <div className="flex items-center justify-between gap-2">
+                  <div>
+                    <p className="text-sm text-gray-400 font-medium">Total Sales</p>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">₹ 23,98,980.87</h3>
+                  </div>
+                  <img src={TotalSalesIcon} alt="icon" className="w-10 h-10" />
+                </div>
+                <div className="flex items-center mt-2 gap-1 text-sm text-red-500 font-medium">
+                  <span>↓</span> 4.3% Down from yesterday
+                </div>
+              </div>
 
-      {/* Product Sold */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 h-[300px]">
-        <div className="flex items-center justify-between mb-3">
-          <h3 className="text-sm font-semibold text-gray-900 dark:text-white">Product Sold</h3>
-          <div className="flex gap-2 text-xs text-gray-500 dark:text-gray-400">
-            <span className="font-bold text-blue-500">Today</span>
-            <span>·</span>
-            <span>Week</span>
-          </div>
-        </div>
-
-        <div className="flex gap-6">
-          {/* Responsive Pie Chart */}
-          <div className="flex-shrink-0 w-[50%]">
-            <div className="w-full aspect-square">
-              <PieChart data={pieChartData} />
+              <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 h-[300px]">
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-sm font-semibold text-gray-900 dark:text-white">Product Sold</h3>
+                  <div className="flex gap-2 text-xs text-gray-500 dark:text-gray-400">
+                    <span className="font-bold text-blue-500">Today</span>
+                    <span>·</span>
+                    <span>Week</span>
+                  </div>
+                </div>
+                <LineGraph />
+              </div>
             </div>
           </div>
-
-          {/* Legends */}
-          {/* <div className="flex flex-col justify-center gap-2 text-sm font-medium text-gray-900 dark:text-white">
-            {pieChartData.map((item, index) => (
-              <div key={index} className="flex justify-between gap-4 items-center">
-                <span className="flex items-center gap-2 min-w-[120px]">
-                  <span className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }}></span>
-                  {item.label}
-                </span>
-                <span className="font-bold">{Math.round((item.value / 95920) * 100)}%</span>
-              </div>
-            ))}
-          </div> */}
-        </div>
-      </div>
-    </div>
-  </div>
-)}
-
-
+        )}
       </div>
     </div>
   );

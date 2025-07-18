@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { Sidebar } from "../../components/sidebar/Sidebar";
+import { Sidebar } from "../../components/layouts/Sidebar";
 import DashboardHeader from "../dashboard/DashboardHeader";
-import SubHeader from "../../hooks/SubHeader";
+import SubHeader from "../../components/layouts/SubHeader";
 
 // Icons
 import FilterIcon from "../../assets/icons/Filter.svg";
@@ -11,10 +11,10 @@ import SearchIcon from "../../assets/icons/Search.svg";
 import DownloadIcon from "../../assets/icons/DownloadReport.svg";
 
 // Tables
-import ProductTable from "../../components/tables/ProductTable";
-import OrderTable from "../../components/tables/OrderTable";
-import CustomerTable from "../../components/tables/CustomerTable";
-import DonateTable from "../../components/tables/DonateTable"; // create this if not already
+import ProductTable from "../products/ProductTable";
+import OrderTable from "../orders/OrderTable";
+import CustomerTable from "../customer/CustomerTable";
+import DonateTable from "../donate/DonateTable";
 
 const ReportPage = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);

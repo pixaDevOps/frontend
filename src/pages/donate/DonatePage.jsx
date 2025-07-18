@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Sidebar } from "../../components/sidebar/Sidebar";
+import { Sidebar } from "../../components/layouts/Sidebar";
 import DashboardHeader from "../dashboard/DashboardHeader";
 import SubHeader from "../../hooks/SubHeader";
 
@@ -10,7 +10,7 @@ import SearchIcon from "../../assets/icons/Search.svg";
 import AddOrderIcon from "../../assets/icons/AddOrder.svg";
 
 // 🧩 Reusable table
-import DonateTable from "../../components/tables/DonateTable";
+import DonateTable from "./DonateTable";
 
 const DonatePage = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);

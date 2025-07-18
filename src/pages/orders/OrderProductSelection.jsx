@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import OrderProductLayout from '../../components/ui/OrderProductLayout';
+import OrderProductLayout from './components/OrderProductLayout';
 import Stepper from '../../components/ui/Stepper';
-import Button from '../../components/atoms/Buttons';
+import Button from '../../components/buttons/Buttons';
 import { Plus, Minus } from 'lucide-react';
 import OrderReviewSummary from './OrderReviewSummary';
 

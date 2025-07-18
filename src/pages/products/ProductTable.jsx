@@ -5,8 +5,8 @@ import DeleteIcon from "../../assets/icons/Delete.svg";
 import fallbackImage from "../../assets/images/AddProduct.png";
 import AddProductModal from "../../pages/products/AddProductModal";
 import ViewProductModal from "../../pages/products/ViewProductModal";
-import { DeleteConfirm } from "../../components/molecules/DeleteConfirm";
-import { DeletedStatus } from "../../components/molecules/DeletedStatus";
+import { DeleteConfirm } from "../../components/ui/DeleteConfirm";
+import { DeletedStatus } from "../../components/ui/DeletedStatus";
 
 const ProductTable = () => {
   const [products, setProducts] = useState([]);

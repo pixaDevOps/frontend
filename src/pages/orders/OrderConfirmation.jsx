@@ -1,5 +1,5 @@
 import React from 'react';
-import OrderProductLayout from '../../components/ui/OrderProductLayout';
+import OrderProductLayout from './components/OrderProductLayout';
 import Stepper from '../../components/ui/Stepper';
 import OrderAddedIcon from '../../assets/icons/OrderAdded.svg'; // use correct asset path
 

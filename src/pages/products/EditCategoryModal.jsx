@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import ImageIcon from "../../assets/icons/AddImage.svg";
 import { X } from "lucide-react";
-import Button from "../../components/atoms/Buttons";
+import Button from "../../components/buttons/Buttons";
 
 const EditCategoryModal = ({ isOpen, onClose, category, onUpdate }) => {
   if (!isOpen || !category) return null;

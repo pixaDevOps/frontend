@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import OrderProductLayout from '../../components/ui/OrderProductLayout';
+import OrderProductLayout from './components/OrderProductLayout';
 import Stepper from '../../components/ui/Stepper';
-import Button from '../../components/atoms/Buttons';
+import Button from '../../components/buttons/Buttons';
 import SearchIcon from '../../assets/icons/Search.svg';
 import OrderConfirmationSuccess from './OrderConfirmation';
 
@@ -12,7 +12,7 @@ const OrderReviewSummary = ({ isOpen, onClose, onPrev, summaryData }) => {
     { code: '00001', name: 'Drugless Kingdom Book Version-1 (Kannada)', qty: 2, cost: 2299, delivery: 229 },
     { code: '00002', name: 'Drugless Kingdom Book Version-1 (Kannada)', qty: 2, cost: 2299, delivery: 229 },
     { code: '00003', name: 'Drugless Kingdom Book Version-1 (Kannada)', qty: 2, cost: 2299, delivery: 229 },
-        { code: '00003', name: 'Drugless Kingdom Book Version-1 (Kannada)', qty: 2, cost: 2299, delivery: 229 },
+    { code: '00003', name: 'Drugless Kingdom Book Version-1 (Kannada)', qty: 2, cost: 2299, delivery: 229 },
     { code: '00003', name: 'Drugless Kingdom Book Version-1 (Kannada)', qty: 2, cost: 2299, delivery: 229 },
     { code: '00003', name: 'Drugless Kingdom Book Version-1 (Kannada)', qty: 2, cost: 2299, delivery: 229 },
     { code: '00003', name: 'Drugless Kingdom Book Version-1 (Kannada)', qty: 2, cost: 2299, delivery: 229 },

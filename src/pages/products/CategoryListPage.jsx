@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import DashboardHeader from "../dashboard/DashboardHeader";
-import { Sidebar } from "../../components/sidebar/Sidebar";
-import SubHeader from "../../hooks/SubHeader";
-import AddCategoryModal from "./AddCategoryModal";
+import { Sidebar } from "../../components/layouts/Sidebar";
+import SubHeader from "../../components/layouts/SubHeader";
+import AddCategory from "./AddCategory";
 import ViewCategoryModal from "./ViewCategoryModal";
 import EditCategoryModal from "./EditCategoryModal";
 import AddCategoryIcon from "../../assets/icons/AddCategory.svg";
 
-const Category = () => {
+const CategoryListPage = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [activeMenuItem, setActiveMenuItem] = useState("products-add-category");
 
@@ -87,7 +87,7 @@ const Category = () => {
   ))}
 </div>
 
-          <AddCategoryModal
+          <AddCategory
             isOpen={showAddModal}
             onClose={() => setShowAddModal(false)}
             onSave={handleAddCategory}
@@ -119,4 +119,4 @@ const Category = () => {
   );
 };
 
-export default Category;
+export default CategoryListPage;

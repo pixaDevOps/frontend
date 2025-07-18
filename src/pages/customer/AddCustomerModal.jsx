@@ -2,7 +2,7 @@
 
 import React from "react";
 import { X } from "lucide-react";
-import Button from "../../components/atoms/Buttons";
+import Button from "../../components/buttons/Buttons";
 
 const AddCustomerModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;

@@ -1,6 +1,6 @@
 import React from "react";
 import DeleteIcon from "../../assets/icons/TrashIcon.svg";
-import Button from "../atoms/Buttons";
+import Button from "../buttons/Buttons";
 export const DeleteConfirm = ({ isOpen, onClose, onDelete, message }) => {
   if (!isOpen) return null;
 

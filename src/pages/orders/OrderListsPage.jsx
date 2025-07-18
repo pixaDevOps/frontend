@@ -1,17 +1,15 @@
 "use client";
 
 import React, { useState } from "react";
-import { Sidebar } from "../../components/sidebar/Sidebar";
+import { Sidebar } from "../../components/layouts/Sidebar";
 import DashboardHeader from "../dashboard/DashboardHeader";
-import SubHeader from "../../hooks/SubHeader";
+import SubHeader from "../../components/layouts/SubHeader";
 import OrderFormCustomer from "./OrderFormCustomer";
 // Icons
 import AddOrderIcon from "../../assets/icons/AddOrder.svg";
 import FilterIcon from "../../assets/icons/Filter.svg";
 import SearchIcon from "../../assets/icons/Search.svg";
-
-// 🄟 Importing reusable OrderTable
-import OrderTable from "../../components/tables/OrderTable";
+import OrderTable from "./OrderTable";
 
 const OrderLists = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);

@@ -1,6 +1,6 @@
 // src/pages/products/ViewProductModal.jsx
 import React from "react";
-import Button from "../../components/atoms/Buttons";
+import Button from "../../components/buttons/Buttons";
 import defaultImage from "../../assets/images/AddProduct.png";
 
 const ViewProductModal = ({ isOpen, onClose, product }) => {
