@@ -21,7 +21,7 @@ const AddCategory = ({ isOpen, onClose, onSave }) => {
     const newCategory = {
       name: categoryName,
       type: categoryType,
-      imageUrl: URL.createObjectURL(imageFile), // 👈 Key line to fix image preview
+      imageUrl: URL.createObjectURL(imageFile), 
       imageFile: imageFile,
     };
 
@@ -56,7 +56,7 @@ const AddCategory = ({ isOpen, onClose, onSave }) => {
 
         <form onSubmit={handleSubmit} className="flex gap-4">
           {/* Upload Box */}
-          <label className="w-48 aspect-square border-2 border-dashed border-gray-300 dark:border-gray-600 bg-blue-50 dark:bg-blue-900/10 rounded-xl p-4 flex flex-col items-center justify-center text-blue-600 dark:text-blue-400 cursor-pointer hover:border-blue-400 transition">
+          <label className="w-48 aspect-square border-2 border-dashed border-gray-300 dark:border-gray-600 bg-blue-50 dark:bg-blue-900/10 rounded-xl  flex flex-col items-center justify-center text-blue-600 dark:text-blue-400 cursor-pointer hover:border-blue-400 transition">
             <input
               type="file"
               accept="image/*"

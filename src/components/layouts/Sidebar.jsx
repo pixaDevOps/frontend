@@ -19,15 +19,8 @@ import ReportIcon from "../../assets/icons/Report.svg";
 
 const menuItems = [
   { id: "dashboard", label: "Dashboard", icon: DashboardIcon, path: "/dashboard" },
-  {
-    id: "products",
-    label: "Products",
-    icon: ProductIcon,
-    submenu: [
-      { id: "category", label: "Add Category", path: "/products/category" },
-      { id: "add-product", label: "Add Product", path: "/products/add-product" },
-    ],
-  },
+  { id: "category", label: "Add Category", path: "/category", icon: ProductIcon},
+  { id: "add-product", label: "Add Product", path: "/add-product", icon: ProductIcon},
   { id: "orders", label: "Order Lists", icon: OrderIcon, path: "/orders" },
   { id: "customers", label: "Customer", icon: CustomerIcon, path: "/customers" },
   { id: "reports", label: "Report", icon: ReportIcon, path: "/reports" },
@@ -50,11 +43,9 @@ export const Sidebar = ({ isCollapsed, onToggle }) => {
   }, [location.pathname]);
 
   return (
-    <motion.div
-      initial={false}
-      animate={{ width: isCollapsed ? 64 : 200 }}
-      transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="bg-white dark:bg-slate-900 border-r border-gray-200 dark:border-slate-700 flex flex-col h-screen justify-between shadow-sm"
+    <div
+      className={`transition-none duration-0 bg-white dark:bg-slate-900 border-r border-gray-200 dark:border-slate-700 flex flex-col h-screen justify-between shadow-sm relative ${isCollapsed ? 'w-16' : 'w-52'}`}
+      style={{ overflow: 'visible' }}
     >
       {/* Logo */}
       <div className="p-4">
@@ -83,7 +74,7 @@ export const Sidebar = ({ isCollapsed, onToggle }) => {
                 {!hasSubmenu ? (
                   <Link
                     to={item.path}
-                    className={`flex items-center rounded-lg group ${
+                    className={`flex items-center rounded-lg group transition-none duration-0 ${
                       isActive
                         ? "bg-secondary text-white shadow-md"
                         : "text-black dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800"
@@ -97,7 +88,9 @@ export const Sidebar = ({ isCollapsed, onToggle }) => {
                       />
                     </div>
                     {!isCollapsed && (
-                      <span className="text-sm font-medium">{item.label}</span>
+                      <span className="text-sm font-medium whitespace-nowrap translate-y-[1px]">
+                        {item.label}
+                      </span>
                     )}
                   </Link>
                 ) : (
@@ -106,7 +99,7 @@ export const Sidebar = ({ isCollapsed, onToggle }) => {
                       onClick={() =>
                         setExpandedSubmenu(isExpanded ? null : item.id)
                       }
-                      className={`flex items-center w-full rounded-lg ${
+                      className={`flex items-center w-full rounded-lg transition-colors duration-200 ${
                         isExpanded
                           ? "bg-secondary text-white"
                           : "text-black dark:text-slate-300 hover:bg-secondary hover:text-white"
@@ -123,45 +116,42 @@ export const Sidebar = ({ isCollapsed, onToggle }) => {
                         <span className="text-sm font-medium">{item.label}</span>
                       )}
                     </button>
-<AnimatePresence initial={false}>
-{!isCollapsed && isExpanded && (
-  <motion.ul
-    initial={{ height: 0, opacity: 0 }}
-    animate={{ height: "auto", opacity: 1 }}
-    exit={{ height: 0, opacity: 0 }}
-    transition={{ duration: 0.3 }}
-    className="relative  ml-6 pl-1 space-y-2"
-  >
-    {/* Vertical line trunk */}
-    <div className="absolute left-2 top-0 bottom-2 w-px bg-black dark:bg-gray-500" />
 
-    {item.submenu.map((sub, i) => {
-      const isSubActive = location.pathname === sub.path;
-      return (
-        <li key={sub.id} className="relative flex items-start justify-center">
-          {/* Curved branch */}
-          <span className="absolute left-1 top- w-4 h-4 border-l-2 border-b-2 border-black dark:border-gray-500 rounded-bl-md" />
+                    {/* Submenu */}
+                    {!isCollapsed && isExpanded && (
+                      <motion.ul
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="relative ml-6 pl-1 space-y-2 overflow-hidden"
+                      >
+                        {/* Vertical line trunk */}
+                        <div className="absolute left-2 top-0 bottom-2 w-px bg-black dark:bg-gray-500" />
 
-          {/* Link */}
-          <Link
-            to={sub.path}
-            className={`ml-4 block text-sm transition-colors duration-200 ${
-              isSubActive
-                ? "font-medium text-secondary"
-                : "text-gray-600 dark:text-gray-400"
-            }`}
-          >
-            {sub.label}
-          </Link>
-        </li>
-      );
-    })}
-  </motion.ul>
-)}
+                        {item.submenu?.map((sub) => {
+                          const isSubActive = location.pathname === sub.path;
+                          return (
+                            <li key={sub.id} className="relative flex items-start justify-center">
+                              {/* Curved branch */}
+                              <span className="absolute left-1 top-1 w-4 h-4 border-l-2 border-b-2 border-black dark:border-gray-500 rounded-bl-md" />
 
-
-</AnimatePresence>
-
+                              {/* Link */}
+                              <Link
+                                to={sub.path}
+                                className={`ml-4 block text-sm transition-colors duration-200 ${
+                                  isSubActive
+                                    ? "font-medium text-secondary"
+                                    : "text-gray-600 dark:text-gray-400 hover:text-secondary"
+                                }`}
+                              >
+                                {sub.label}
+                              </Link>
+                            </li>
+                          );
+                        })}
+                      </motion.ul>
+                    )}
                   </>
                 )}
               </li>
@@ -174,7 +164,7 @@ export const Sidebar = ({ isCollapsed, onToggle }) => {
       <div className="relative">
         <button
           onClick={onToggle}
-          className="absolute -right-4 bottom-5 w-7 h-7 rounded-full bg-secondary hover:bg-blue-700 text-white transition duration-200 shadow-lg border-1 border-white dark:border-slate-900 flex items-center justify-center z-10"
+          className="absolute -right-4 bottom-5 w-7 h-7 rounded-full bg-secondary hover:bg-blue-700 text-white transition-colors duration-200 shadow-lg border-1 border-white dark:border-slate-900 flex items-center justify-center z-10"
         >
           <motion.img
             src={isCollapsed ? RightIcon : LeftIcon}
@@ -187,6 +177,6 @@ export const Sidebar = ({ isCollapsed, onToggle }) => {
           />
         </button>
       </div>
-    </motion.div>
+    </div>
   );
 };

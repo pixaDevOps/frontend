@@ -12,8 +12,8 @@ function App() {
     <Routes>
       <Route path="/" element={<AuthPage />} />
       <Route path="/dashboard" element={<Dashboard />}/>
-      <Route path="/products/category" element={<CategoryListPage />} />
-      <Route path="/products/add-product" element={<ProductListPage />} />
+      <Route path="/category" element={<CategoryListPage />} />
+      <Route path="/add-product" element={<ProductListPage />} />
       <Route path='/orders' element={<OrderLists />}/>
       <Route path='/customers' element={<CustomerPage />}/>
       <Route path='/reports' element={<ReportPage />}/>
