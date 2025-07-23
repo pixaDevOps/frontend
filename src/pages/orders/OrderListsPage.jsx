@@ -5,7 +5,6 @@ import { Sidebar } from "../../components/layouts/Sidebar";
 import DashboardHeader from "../dashboard/DashboardHeader";
 import SubHeader from "../../components/layouts/SubHeader";
 import OrderFormCustomer from "./OrderFormCustomer";
-// Icons
 import AddOrderIcon from "../../assets/icons/AddOrder.svg";
 import FilterIcon from "../../assets/icons/Filter.svg";
 import SearchIcon from "../../assets/icons/Search.svg";
@@ -27,7 +26,7 @@ const OrderLists = () => {
   ];
 
   return (
-    <div className="flex h-screen overflow-hidden bg-white dark:bg-gray-900 transition-colors duration-300">
+    <div className="flex h-screen overflow-hidden bg-background dark:bg-gray-900 transition-colors duration-300">
       {/* Sidebar */}
       <Sidebar
         isCollapsed={sidebarCollapsed}
@@ -44,21 +43,21 @@ const OrderLists = () => {
           <SubHeader
             title="Order"
             buttonText="Add New Order"
-            onClick={() => setIsOrderFormOpen(true)} // trigger modal
+            onClick={() => setIsOrderFormOpen(true)}
             icon={AddOrderIcon}
             searchIcon={SearchIcon}
             filterIcon={FilterIcon}
           />
 
           {/* Tabs */}
-          <div className="flex gap-6 mb-3 border-gray-200 dark:border-gray-700">
+          <div className="flex gap-5 mt-4 mb-2 text-sm font-medium text-placeholdergray dark:text-gray-300">
             {tabs.map((tab) => {
               const isActive = activeTab === tab.label;
               return (
                 <button
                   key={tab.label}
                   onClick={() => setActiveTab(tab.label)}
-                  className={`pb-2 text-sm font-medium flex items-center gap-1 border-b-2 transition-all duration-200 ${
+                  className={`pb-2 flex items-center gap-1 border-b-2 transition-all duration-200 ${
                     isActive
                       ? "border-indigo-500 text-indigo-600 dark:text-indigo-400"
                       : "border-transparent text-gray-600 dark:text-gray-400 hover:text-indigo-600"
@@ -73,19 +72,18 @@ const OrderLists = () => {
             })}
           </div>
 
-          {/* Orders Table */}
+          {/* Order Table */}
           <OrderTable />
         </main>
       </div>
 
-      {/* Order Modal Popup */}
+      {/* Modal for New Order */}
       {isOrderFormOpen && (
         <OrderFormCustomer
           isOpen={isOrderFormOpen}
           onClose={() => setIsOrderFormOpen(false)}
           onNext={() => {
             console.log("Next step clicked");
-            // handle next modal or step logic here
           }}
         />
       )}

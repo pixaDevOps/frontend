@@ -3,41 +3,35 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
+
 import PhoneIcon from "../../assets/icons/Phone.svg";
 import logo from "../../assets/icons/logo.svg";
 
-//  Validation schema
+//  validation 
 const phoneSchema = z.object({
-  phone: z
-    .string()
-    .min(10, "Phone number must be 10 digits")
-    .max(10, "Phone number must be 10 digits"),
+  phone: z.string().length(10, "Phone number must be exactly 10 digits"),
 });
 
 type PhoneInput = z.infer<typeof phoneSchema>;
 
 const LoginForm = () => {
   const [step, setStep] = useState<"phone" | "otp">("phone");
-  const [otp, setOtp] = useState(["", "", "", ""]);
+  const [otp, setOtp] = useState<string[]>(["", "", "", ""]);
   const [timer, setTimer] = useState(30);
   const [resendVisible, setResendVisible] = useState(false);
   const navigate = useNavigate();
 
-  //  Hook Form
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm<PhoneInput>({
-    resolver: zodResolver(phoneSchema),
-  });
+  } = useForm<PhoneInput>({ resolver: zodResolver(phoneSchema) });
 
-  //  OTP Countdown
+  //  OTP Countdown Timer
   useEffect(() => {
-    let interval: NodeJS.Timeout;
     if (step === "otp") {
-      interval = setInterval(() => {
+      const interval = setInterval(() => {
         setTimer((prev) => {
           if (prev <= 1) {
             clearInterval(interval);
@@ -47,75 +41,70 @@ const LoginForm = () => {
           return prev - 1;
         });
       }, 1000);
+      return () => clearInterval(interval);
     }
-    return () => clearInterval(interval);
   }, [step]);
 
-  // Form Submission
+  //  Submit phone and move to OTP step
   const handlePhoneSubmit = (data: PhoneInput) => {
     console.log("Sending OTP to:", data.phone);
     setStep("otp");
   };
 
-  //  OTP Input Logic
+  //  Handle OTP input field
   const handleOtpChange = (index: number, value: string) => {
     if (/^\d?$/.test(value)) {
-      const updated = [...otp];
-      updated[index] = value;
-      setOtp(updated);
+      const newOtp = [...otp];
+      newOtp[index] = value;
+      setOtp(newOtp);
 
       if (value && index < 3) {
-        const nextInput = document.getElementById(`otp-${index + 1}`);
-        nextInput?.focus();
+        const next = document.getElementById(`otp-${index + 1}`);
+        next?.focus();
       }
     }
   };
 
+  //  Resend OTP handler
   const handleResend = () => {
+    setOtp(["", "", "", ""]);
     setTimer(30);
     setResendVisible(false);
-    setOtp(["", "", "", ""]);
   };
 
   return (
     <div className="w-full h-full p-4 flex flex-col justify-center items-center bg-white">
       {/* LOGO */}
-<img
-  src={logo}
-  alt="Ayushya Mandalam Logo"
-  className="w-24 h-24 mb-6 object-contain"
-/>
+      <img src={logo} alt="Ayushya Mandalam" className="w-24 h-24 mb-6 object-contain" />
 
-
-      {/* PHONE FORM */}
+      {/* PHONE STEP */}
       {step === "phone" && (
         <form
           onSubmit={handleSubmit(handlePhoneSubmit)}
           className="w-full max-w-xs space-y-5"
         >
           <div className="text-center">
-            <h2 className="text-2xl font-bold text-gray-800">Login</h2>
-            <p className="text-gray-600 text-sm mt-1">
+            <h2 className="text-2xl font-bold text-primary">Login</h2>
+            <p className="text-sm text-placeholdergray mt-1">
               Enter your phone number to sign in
             </p>
           </div>
 
           <div className="relative">
-<img
-  src={PhoneIcon}
-  alt="Phone icon"
-  className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5"
-/>
+            <img
+              src={PhoneIcon}
+              alt=""
+              className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none"
+            />
             <input
               type="tel"
               placeholder="Phone number"
               {...register("phone")}
-              className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-secondary"
+              maxLength={10}
+              className="w-full pl-10 pr-4 py-3 border border-bordergray rounded-lg outline-none focus:ring-2 focus:ring-secondary text-primary placeholder-placeholdergray"
             />
             {errors.phone && (
-              <p className="text-sm text-red-500 mt-1">
-                {errors.phone.message}
-              </p>
+              <p className="text-sm text-red-500 mt-1">{errors.phone.message}</p>
             )}
           </div>
 
@@ -128,18 +117,15 @@ const LoginForm = () => {
         </form>
       )}
 
-      {/* OTP FORM */}
+      {/*  OTP STEP */}
       {step === "otp" && (
         <div className="w-full max-w-xs space-y-5 text-center">
           <div>
-            <h2 className="text-xl font-bold text-gray-800">
-              OTP Verification
-            </h2>
-            <p className="text-sm text-gray-600 mt-1">
-              Code sent to <br />
-              <span className="font-medium text-black">
-                +91 {watch("phone")}
-              </span>
+            <h2 className="text-xl font-bold text-primary">OTP Verification</h2>
+            <p className="text-sm text-placeholdergray mt-1">
+              Code sent to
+              <br />
+              <span className="font-medium text-primary">+91 {watch("phone")}</span>
             </p>
           </div>
 
@@ -153,19 +139,19 @@ const LoginForm = () => {
                 maxLength={1}
                 value={digit}
                 onChange={(e) => handleOtpChange(index, e.target.value)}
-                className="w-12 h-12 text-xl text-center border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-secondary"
+                className="w-12 h-12 text-xl text-center border border-bordergray rounded-md focus:outline-none focus:ring-2 focus:ring-secondary text-primary"
                 aria-label={`OTP digit ${index + 1}`}
               />
             ))}
           </div>
 
           {!resendVisible ? (
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-placeholdergray">
               Didn't receive OTP?{" "}
               <span className="text-secondary font-medium">{timer}s ⏱</span>
             </p>
           ) : (
-            <p className="text-sm text-gray-800">
+            <p className="text-sm text-primary">
               Didn't receive OTP?{" "}
               <button
                 onClick={handleResend}

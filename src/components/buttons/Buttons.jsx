@@ -1,6 +1,16 @@
-const Button = ({ children, size = "medium", color = "primary", className = "", ...props }) => {
-  const base = "rounded font-bold disabled:opacity-50 transition-all";
 
+const Button = ({
+  children,
+  size = "medium",             // 'small' | 'medium' | 'large' | 'fixed'
+  color = "primary",           // 'primary' | 'secondary' | 'danger' | 'gray'
+  className = "",
+  type = "button",            
+  ...props
+}) => {
+  // Base styles applied to all buttons
+  const base = "rounded font-bold disabled:opacity-50 transition-all focus:outline-none";
+
+  //  Size variations
   const sizeClasses = {
     small: "text-xs px-2 py-1",
     medium: "text-sm px-4 py-1",
@@ -9,14 +19,15 @@ const Button = ({ children, size = "medium", color = "primary", className = "", 
   };
 
   const colorClasses = {
-    primary: "bg-secondary text-white",
-    secondary: "bg-secondary text-white",
-    danger: "bg-red-700 text-white",
-    gray: "bg-gray-400 text-white border border-gray-400 cursor-not-allowed", // ✅ Added
+    primary: "bg-secondary text-white hover:bg-secondary/90",       
+    secondary: "bg-tabBg text-primaryFont hover:bg-tabBg/80",       
+    danger: "bg-red-600 text-white hover:bg-red-700",               
+    gray: "bg-border text-darkGray border border-border cursor-not-allowed", 
   };
 
   return (
     <button
+      type={type}
       className={`${base} ${sizeClasses[size]} ${colorClasses[color]} ${className}`}
       {...props}
     >

@@ -5,10 +5,9 @@ import { createContext, useContext, useEffect, useState } from "react";
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  const [isDark, setIsDark] = useState(false); // Default to false for SSR compatibility
+  const [isDark, setIsDark] = useState(false); 
 
   useEffect(() => {
-    // Only run on client side after hydration
     const stored = localStorage.getItem("theme");
     if (stored) {
       setIsDark(stored === "dark");

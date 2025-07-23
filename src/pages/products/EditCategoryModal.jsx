@@ -17,8 +17,8 @@ const EditCategoryModal = ({ isOpen, onClose, category, onUpdate }) => {
   const modalRef = useRef(null);
 
   useEffect(() => {
-    setCatName(category.name || "");
-    setCatImage(category.imageUrl || "");
+    setCatName(category.name);
+    setCatImage(category.imageUrl);
     setSubcategories(category.subcategories || []);
   }, [category]);
 
@@ -80,64 +80,48 @@ const EditCategoryModal = ({ isOpen, onClose, category, onUpdate }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40" role="dialog" aria-modal="true">
       <div
         ref={modalRef}
-        className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl w-full max-w-3xl border border-gray-300 dark:border-gray-700 p-4"
+        className="bg-background dark:bg-gray-900 rounded-2xl shadow-xl w-full max-w-3xl border border-bordergray dark:border-gray-700 p-4"
+        tabIndex={-1}
       >
         {/* Header */}
         <div className="flex items-center justify-between mb-2">
-          <h2 className="text-base font-bold text-black dark:text-white">Add Sub Category</h2>
+          <h2 className="text-base font-bold text-primary dark:text-white">Edit Category</h2>
           <button onClick={onClose} className="text-red-500">
             <X size={22} />
           </button>
         </div>
 
-        {/* Main Content */}
-        <div className="flex flex-col md:flex-row gap-3">
-          {/* Left: Image + Name */}
+        {/* Content */}
+        <div className="flex flex-col md:flex-row gap-4">
+          {/* Left Side: Image + Category Name */}
           <div className="w-full md:w-1/2">
-            <div className="relative w-full aspect-square rounded-xl overflow-hidden border border-gray-300 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-800 dark:to-purple-900">
-              <label className="w-full h-full block cursor-pointer relative">
+            <div className="relative w-full aspect-square rounded-xl overflow-hidden border border-bordergray bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-800 dark:to-purple-900">
+              <label className="block w-full h-full cursor-pointer relative">
                 <input
                   type="file"
                   className="hidden"
                   accept="image/*"
                   onChange={handleImageChange}
                 />
-                {catImage && (
-                  <img
-                    src={catImage}
-                    alt="Category"
-                    className="w-full h-full object-cover"
-                  />
-                )}
-
-                <div className="absolute inset-0 bg-white bg-opacity-30 transition-all duration-300 flex items-center justify-center">
-                  <div className="w-full h-full flex flex-col items-center justify-center">
-                    <img
-                      src={ImageIcon}
-                      alt="Upload"
-                      className="w-12 h-12 opacity-100 mb-2 filter brightness-0"
-                    />
-                    <span className="text-black text-sm">Change Image</span>
+                {catImage && <img src={catImage} alt="Category" className="w-full h-full object-cover" />}
+                <div className="absolute inset-0 bg-white bg-opacity-30 flex items-center justify-center">
+                  <div className="flex flex-col items-center">
+                    <img src={ImageIcon} alt="Upload" className="w-12 h-12 opacity-100 mb-2 filter brightness-0" />
+                    <span className="text-primary text-sm">Change Image</span>
                   </div>
                 </div>
               </label>
-
-              {/* Category name input */}
-              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white  px-2 py-2 rounded-md text-base font-semibold text-black shadow min-w-[260px] text-center flex items-center justify-center gap-2">
+              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-background px-4 py-2 rounded-md text-base font-semibold text-primary shadow flex items-center gap-2 min-w-[260px] justify-center">
                 <input
                   value={catName}
                   onChange={handleCatNameChange}
-                  className="bg-transparent w-[180px] outline-none text-center text-base font-semibold"
+                  className="bg-background w-[180px] outline-none text-center text-base font-semibold"
                 />
                 {showCatSave && (
-                  <Button
-                    size="small"
-                    color="primary"
-                    onClick={saveCatName}
-                  >
+                  <Button size="small" color="primary" onClick={saveCatName}>
                     Save
                   </Button>
                 )}
@@ -145,17 +129,16 @@ const EditCategoryModal = ({ isOpen, onClose, category, onUpdate }) => {
             </div>
           </div>
 
-          {/* Right: Subcategories */}
+          {/* Right Side: Subcategories */}
           <div className="w-full md:w-1/2 flex flex-col justify-between h-[360px]">
-            <h3 className="text-base font-bold text-black dark:text-white mb-3">Sub Category</h3>
-
-<div className="overflow-y-auto flex-1 pr-1 pb-2 scrollbar-thin  dark:scrollbar-thumb-gray-600 scrollbar-track-transparent">
+            <h3 className="text-base font-bold text-primary dark:text-white mb-3">Sub Category</h3>
+            <div className="overflow-y-auto flex-1 pr-1 pb-2 scrollbar-thin dark:scrollbar-thumb-gray-600 scrollbar-track-transparent">
               {subcategories.length > 0 ? (
                 <div className="grid grid-cols-2 gap-3">
                   {subcategories.map((sub, idx) => (
                     <div
                       key={idx}
-                      className="flex items-center border border-gray-300 rounded px-2 py-1 bg-white dark:bg-gray-800"
+                      className="flex items-center border border-bordergray rounded px-2 py-1 bg-basewhite dark:bg-gray-800"
                     >
                       <input
                         type="text"
@@ -163,7 +146,7 @@ const EditCategoryModal = ({ isOpen, onClose, category, onUpdate }) => {
                         onChange={(e) => setEditedSubCat(e.target.value)}
                         onFocus={() => handleEditSubCat(idx)}
                         readOnly={editingIndex !== idx}
-                        className="w-full bg-transparent text-sm text-black dark:text-white outline-none"
+                        className="w-full bg-transparent text-sm text-primary dark:text-white outline-none"
                       />
                       {editingIndex === idx && (
                         <Button
@@ -179,16 +162,14 @@ const EditCategoryModal = ({ isOpen, onClose, category, onUpdate }) => {
                   ))}
                 </div>
               ) : (
-                <div className="text-sm text-gray-500 font-medium text-center py-10">
+                <div className="text-sm text-placeholdergray font-medium text-center py-10">
                   No subcategories found.
                 </div>
               )}
             </div>
 
             <div className="mt-4">
-              <label className="font-semibold text-black dark:text-white">
-                Sub Category Name
-              </label>
+              <label className="font-semibold text-primary dark:text-white">Sub Category Name</label>
               <div className="flex gap-2 mt-1 mb-2">
                 <input
                   type="text"
@@ -197,22 +178,14 @@ const EditCategoryModal = ({ isOpen, onClose, category, onUpdate }) => {
                   onChange={(e) => setNewSubCat(e.target.value)}
                   className="flex-1 px-3 py-1.5 border text-sm rounded dark:bg-gray-800 dark:border-gray-700 dark:text-white"
                 />
-                <Button
-                  size="medium"
-                  color="primary"
-                  onClick={addSubCategory}
-                >
+                <Button size="medium" color="primary" onClick={addSubCategory}>
                   Add
                 </Button>
               </div>
             </div>
 
             <div className="flex justify-center gap-4 mb-2">
-              <Button
-                size="large"
-                color="primary"
-                onClick={handleSave}
-              >
+              <Button size="large" color="primary" onClick={handleSave}>
                 Save
               </Button>
             </div>

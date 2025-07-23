@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { Sidebar } from "../../components/layouts/Sidebar";
 import DashboardHeader from "../dashboard/DashboardHeader";
@@ -17,7 +19,7 @@ const ProductListPage = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [activeMenuItem, setActiveMenuItem] = useState("products-add-product");
   const [activeTab, setActiveTab] = useState("All");
-  const [isAddProductModalOpen, setIsAddProductModalOpen] = useState(false); // Modal control
+  const [isAddProductModalOpen, setIsAddProductModalOpen] = useState(false);
 
   const tabItems = [
     { label: "All", count: 283 },
@@ -27,7 +29,7 @@ const ProductListPage = () => {
   ];
 
   return (
-    <div className="flex h-screen overflow-hidden bg-white dark:bg-gray-900 transition-colors duration-300">
+    <div className="flex h-screen overflow-hidden bg-background dark:bg-gray-900 transition-colors duration-300">
       {/* Sidebar */}
       <Sidebar
         isCollapsed={sidebarCollapsed}
@@ -41,40 +43,42 @@ const ProductListPage = () => {
         <DashboardHeader />
 
         <main className="flex-1 overflow-y-auto p-6 scrollbar-hide">
-        <SubHeader
-  title="Product"
-  buttonText="Add Product"
-  icon={AddProductIcon}
-  searchIcon={SearchIcon}
-  filterIcon={FilterIcon}
-  onClick={() => setIsAddProductModalOpen(true)} 
-/>
-
+          {/* Header */}
+          <SubHeader
+            title="Product"
+            buttonText="Add Product"
+            icon={AddProductIcon}
+            searchIcon={SearchIcon}
+            filterIcon={FilterIcon}
+            onClick={() => setIsAddProductModalOpen(true)}
+          />
 
           {/* Tabs */}
-          <div className="flex gap-5 mt-4 mb-2 text-sm text-gray-600 dark:text-gray-300 font-medium">
-            {tabItems.map((tab) => (
-              <button
-                key={tab.label}
-                onClick={() => setActiveTab(tab.label)}
-                className={`relative pb-2 transition duration-200 ${
-                  activeTab === tab.label
-                    ? "text-indigo-600 dark:text-indigo-400"
-                    : "text-gray-700 dark:text-gray-300"
-                }`}
-              >
-                {tab.label}
-                <span className="ml-1 px-1.5 py-0.5 text-xs bg-gray-200 dark:bg-gray-700 rounded">
-                  {tab.count.toString().padStart(3, "0")}
-                </span>
-                {activeTab === tab.label && (
-                  <span className="absolute bottom-0 left-0 w-full h-[2px] bg-indigo-500 rounded"></span>
-                )}
-              </button>
-            ))}
+          <div className="flex gap-5 mt-4 mb-2 text-sm font-medium text-placeholdergray dark:text-gray-300">
+            {tabItems.map(({ label, count }) => {
+              const isActive = activeTab === label;
+              return (
+                <button
+                  key={label}
+                  onClick={() => setActiveTab(label)}
+                  aria-current={isActive ? "page" : undefined}
+                  className={`pb-2 text-sm font-medium flex items-center gap-1 border-b-2 transition-all duration-200 ${
+                    isActive
+                      ? "border-indigo-500 text-indigo-600 dark:text-indigo-400"
+                      : "border-transparent text-gray-600 dark:text-gray-400 hover:text-indigo-600"
+                  }`}
+                >
+                  {label}
+                  <span className="text-[10px] font-semibold px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white rounded">
+                    {count.toString().padStart(3, "0")}
+                  </span>
+                 
+                </button>
+              );
+            })}
           </div>
 
-          {/* Product Table Switch */}
+          {/* Product Table View */}
           {activeTab === "Trash" ? <TrashPage /> : <ProductTable />}
         </main>
       </div>

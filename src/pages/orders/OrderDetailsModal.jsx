@@ -14,7 +14,7 @@ const OrderDetailsModal = ({ isOpen, onClose, order }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 px-4">
-      <div className="bg-white dark:bg-gray-900 w-full max-w-5xl rounded-xl p-6 relative overflow-hidden">
+      <div className="bg-white dark:bg-gray-900 w-full max-w-4xl rounded-xl p-6 relative overflow-hidden">
         
         {/* Close Button */}
         <button className="absolute top-4 right-4 text-red-500" onClick={onClose}>
@@ -71,7 +71,7 @@ const OrderDetailsModal = ({ isOpen, onClose, order }) => {
                   </div>
 
                   {/* Quantity and Price columns */}
-                  <div className="flex items-center gap-12">
+                  <div className="flex items-center gap-6">
                     <div className="text-sm text-gray-500 text-center">
                       <p>Quantity</p>
                       <p className="font-semibold text-black dark:text-white text-sm">
